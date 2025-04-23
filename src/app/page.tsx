@@ -18,9 +18,9 @@ const GET_POSTS = gql`
 `;
 
 export default async function Home() {
-  const posts = await serverRequest({ query: GET_POSTS, variables: { first: 10 } })
+  const { posts } = await serverRequest({ query: GET_POSTS, variables: { first: 10 } })
 
-  if (posts.props.error) {
+  if (!posts) {
     return <p>Ops!! Something went wrong!</p>
   }
 

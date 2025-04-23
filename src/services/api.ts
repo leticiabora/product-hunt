@@ -13,24 +13,22 @@ interface RequestParams {
   query: string;
   variables?: Record<string, unknown>;
 }
-interface ServerRequestResponse {
-  props: {
-    graphqlData: unknown | null;
-    error?: string | unknown;
-  };
+interface ServerRequestResponse<T> {
+  posts?: T | null;
+  error?: string | unknown;
 }
 
-export const serverRequest = async ({ query, variables }: RequestParams): Promise<ServerRequestResponse> => {
+export const serverRequest = async <T>({ query, variables }: RequestParams): Promise<ServerRequestResponse<T>> => {
   const client = new GraphQLClient(NEXT_PUBLIC_API, {
-    headers: { Authorization: `Bearer ${process.env.DEV_TOKEN}` },
+    headers: { Authorization: `Beearer ${process.env.DEV_TOKEN}` },
   });
 
   try {
-    const data = await client.request(query, variables);
-    return { props: { graphqlData: data } };
+    const data = await client.request<{ posts: T }>(query, variables);
+    return data;
   } catch (error) {
     const graphqlError = error as ClientError;
-    return { props: { graphqlData: null, error: graphqlError.message } };
+    return { error: graphqlError.message };
   }
 }
 
