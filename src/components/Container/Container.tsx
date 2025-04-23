@@ -1,5 +1,5 @@
-import React, { JSX } from "react";
-import * as S from "./Container.styles";
+import React, { JSX } from 'react';
+import * as S from './Container.styles';
 
 interface Params {
   children: JSX.Element | JSX.Element[];

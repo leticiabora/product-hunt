@@ -5,7 +5,7 @@ import { gql } from 'graphql-request';
 
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String) {
-    posts(first: $first, after: $after) {
+    posts(first: $first, after: $after, order: NEWEST) {
       edges {
         node {
           id
@@ -23,12 +23,10 @@ export default async function Home() {
     query: GET_POSTS,
     variables: { first: 10 },
   });
-  
+
   if (!posts) {
-    return <p>Ops!! Something went wrong!</p>
+    return <p>Ops!! Something went wrong!</p>;
   }
 
-  return (
-    <Homepage posts={posts} />
-  );
+  return <Homepage posts={posts} />;
 }
