@@ -1,5 +1,6 @@
 import Homepage from '@/components/pages/Homepage/Homepage';
 import { serverRequest } from '@/services/api';
+import { ServerResponse } from '@/types/posts';
 import { gql } from 'graphql-request';
 
 const GET_POSTS = gql`
@@ -10,7 +11,6 @@ const GET_POSTS = gql`
           id
           name
           description
-          votesCount
         }
         cursor
       }
@@ -19,8 +19,10 @@ const GET_POSTS = gql`
 `;
 
 export default async function Home() {
-  const { posts } = await serverRequest({ query: GET_POSTS, variables: { first: 10 } });
-
+  const { posts } = await serverRequest<ServerResponse>({
+    query: GET_POSTS,
+    variables: { first: 10 },
+  });
   
   if (!posts) {
     return <p>Ops!! Something went wrong!</p>

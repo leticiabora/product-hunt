@@ -1,4 +1,4 @@
-type Post = {
+export type Post = {
   __typename: 'Post';
   id: string;
   name: string;
@@ -10,8 +10,12 @@ export type Edge = {
   node: Post;
 };
 
-export type Response = {
+export type ServerResponse = {
   posts: {
-    edges?: Edge[];
-  };
+    edges: Edge[];
+  }
+};
+
+export type Response = {
+  edges: Edge[];
 };
