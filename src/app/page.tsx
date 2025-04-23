@@ -1,7 +1,11 @@
+'use client';
+
+import Container from "@/components/Container/Container";
+
 export default function Home() {
   return (
-    <div>
-      Hello World!
-    </div>
+    <Container>
+      <p>Hello World!</p>
+    </Container>
   );
 }
