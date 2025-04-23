@@ -1,12 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import StyledComponentsRegistry from "@/lib/registry";
 import Providers from "@/components/Providers/Providers";
-
-const inter = Inter({
-  variable: "--font-inter-sans",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Product Hunt",
@@ -21,9 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <Providers>
-        {children}
-      </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
