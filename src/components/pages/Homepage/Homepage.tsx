@@ -3,7 +3,7 @@
 import { Response, ServerResponse } from '@/types/posts';
 import Container from '../../Container/Container';
 import { gql, useLazyQuery } from '@apollo/client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 
 const GET_POSTS = gql`
@@ -17,6 +17,10 @@ const GET_POSTS = gql`
         }
         cursor
       }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
     }
   }
 `;
@@ -26,43 +30,40 @@ const TYPES = [
   { id: 'pop', order: 'VOTES', name: 'Popular' },
 ];
 
-const Homepage = ({ posts }: ServerResponse) => {
-  const [postsList, setPostsList] = useState<Response>(posts);
+// const Homepage = ({ posts }: ServerResponse) => {
+  const Homepage = () => {
+  const [postsList, setPostsList] = useState([]);
   const [fetchPosts, { loading, error, data, fetchMore }] = useLazyQuery(GET_POSTS);
+  const [hasMore, setHasMore] = useState(true);
+
   const [activeTab, setActiveTab] = useState(TYPES[0].order);
 
-  const { loadMore } = useInfiniteScroll(postsList, setPostsList, fetchMore, activeTab);
+  const lastItemRef = useRef(null);
 
-  // const { loading, error, data } = useQuery(GET_POSTS, { variables: { first: 10 } });
+  const { loadMore, loadingMore } = useInfiniteScroll(postsList, setPostsList, fetchMore, activeTab, loading, hasMore, setHasMore, lastItemRef);
+
 
   useEffect(() => {
-    console.log('data', data);
     if (data?.posts) {
       setPostsList(data.posts);
     }
-  }, [data]);
-
-  // if (loading) return <div>Loading...</div>;
-
-  // if (error) return <p>Error</p>;
-
-  // console.log('client data', data);
+  }, [data])
 
   useEffect(() => {
     fetchPosts({ variables: { first: 10, order: activeTab } });
     console.log('changed!', activeTab);
   }, [activeTab]);
 
-  const onTabChange = (order) => {
+  const onTabChange = (order: string) => {
     setActiveTab(order);
+    setHasMore(true);
   };
 
   if (loading) return <p>Loading...</p>;
 
   if (error) return <p>Error!</p>;
 
-  console.log('DATA:', data);
-
+  console.log('loadingMore', loadingMore)
   return (
     <Container>
       <div style={{ display: 'flex', flexDirection: 'row', gap: 20 }}>
@@ -80,15 +81,15 @@ const Homepage = ({ posts }: ServerResponse) => {
           </button>
         ))}
       </div>
-      <button
-        onClick={() => loadMore()}
-      >
-        Load More
-      </button>
+      <button onClick={() => loadMore()}>Load More</button>
       <div>
-        {postsList.edges.map((post) => (
-          <p key={post.node.id}>{post.node.name}</p>
-        ))}
+        {postsList?.edges?.length ? postsList.edges.map((post, index) => (
+          <p key={post.node.id} ref={index === postsList.edges.length - 1 ? lastItemRef : null}>
+            {post.node.name}
+          </p>
+        )): <p>No Posts</p>}
+        {loadingMore && <p>Loading...</p>}
+        {/* {!hasMore && postsList.edges.length > 0 && <p>No more posts</p>} */}
       </div>
     </Container>
   );

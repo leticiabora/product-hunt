@@ -14,19 +14,24 @@ const GET_POSTS = gql`
         }
         cursor
       }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
     }
   }
 `;
 
 export default async function Home() {
-  const { posts } = await serverRequest<ServerResponse>({
-    query: GET_POSTS,
-    variables: { first: 10 },
-  });
+  // const { posts } = await serverRequest<ServerResponse>({
+  //   query: GET_POSTS,
+  //   variables: { first: 10 },
+  // });
 
-  if (!posts) {
-    return <p>Ops!! Something went wrong!</p>;
-  }
+  // if (!posts) {
+  //   return <p>Ops!! Something went wrong!</p>;
+  // }
 
-  return <Homepage posts={posts} />;
+  // return <Homepage posts={posts} />;
+  return <Homepage />;
 }
