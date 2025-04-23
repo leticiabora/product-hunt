@@ -4,7 +4,7 @@ import { Response, ServerResponse } from '@/types/posts';
 import Container from '../../Container/Container';
 import { gql, useLazyQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
@@ -28,8 +28,10 @@ const TYPES = [
 
 const Homepage = ({ posts }: ServerResponse) => {
   const [postsList, setPostsList] = useState<Response>(posts);
-  const [fetchPosts, { loading, error, data }] = useLazyQuery(GET_POSTS);
+  const [fetchPosts, { loading, error, data, fetchMore }] = useLazyQuery(GET_POSTS);
   const [activeTab, setActiveTab] = useState(TYPES[0].order);
+
+  const { loadMore } = useInfiniteScroll(postsList, setPostsList, fetchMore, activeTab);
 
   // const { loading, error, data } = useQuery(GET_POSTS, { variables: { first: 10 } });
 
@@ -47,7 +49,7 @@ const Homepage = ({ posts }: ServerResponse) => {
   // console.log('client data', data);
 
   useEffect(() => {
-    fetchPosts({ variables: { first: 20, order: activeTab }});
+    fetchPosts({ variables: { first: 10, order: activeTab } });
     console.log('changed!', activeTab);
   }, [activeTab]);
 
@@ -57,7 +59,9 @@ const Homepage = ({ posts }: ServerResponse) => {
 
   if (loading) return <p>Loading...</p>;
 
-  console.log('DATA:', postsList);
+  if (error) return <p>Error!</p>;
+
+  console.log('DATA:', data);
 
   return (
     <Container>
@@ -76,7 +80,11 @@ const Homepage = ({ posts }: ServerResponse) => {
           </button>
         ))}
       </div>
-
+      <button
+        onClick={() => loadMore()}
+      >
+        Load More
+      </button>
       <div>
         {postsList.edges.map((post) => (
           <p key={post.node.id}>{post.node.name}</p>
