@@ -6,7 +6,7 @@ import { useQuery, gql } from '@apollo/client';
 
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String) {
-    posts(first: $first, after: $after) {
+    posts(first: $first, after: $after, order: VOTES) {
       edges {
         node {
           id

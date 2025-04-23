@@ -10,6 +10,7 @@ const GET_POSTS = gql`
           id
           name
           description
+          votesCount
         }
         cursor
       }
@@ -18,8 +19,9 @@ const GET_POSTS = gql`
 `;
 
 export default async function Home() {
-  const { posts } = await serverRequest({ query: GET_POSTS, variables: { first: 10 } })
+  const { posts } = await serverRequest({ query: GET_POSTS, variables: { first: 10 } });
 
+  
   if (!posts) {
     return <p>Ops!! Something went wrong!</p>
   }

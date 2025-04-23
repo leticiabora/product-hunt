@@ -20,11 +20,12 @@ interface ServerRequestResponse<T> {
 
 export const serverRequest = async <T>({ query, variables }: RequestParams): Promise<ServerRequestResponse<T>> => {
   const client = new GraphQLClient(NEXT_PUBLIC_API, {
-    headers: { Authorization: `Beearer ${process.env.DEV_TOKEN}` },
+    headers: { Authorization: `Bearer ${process.env.DEV_TOKEN}` },
   });
 
   try {
     const data = await client.request<{ posts: T }>(query, variables);
+
     return data;
   } catch (error) {
     const graphqlError = error as ClientError;
