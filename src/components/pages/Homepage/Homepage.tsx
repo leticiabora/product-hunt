@@ -18,7 +18,7 @@ const GET_POSTS = gql`
         node {
           id
           name
-          description
+          tagline
         }
         cursor
       }
@@ -112,11 +112,12 @@ const Homepage = () => {
                 key={post.node.id}
                 ref={index === postsList.edges.length - 1 ? lastItemRef : null}
               >
-                {post.node.name}
+                <S.Item>{post.node.name}</S.Item>
+                <S.Item>{post.node.tagline}</S.Item>
               </Card>
             ))
           ) : (
-            <p>No Posts</p>
+            <S.Item>No Posts</S.Item>
           )}
           {loadingMore &&
             Array.from({ length: 10 }).map((_, index) => <Skeleton key={index} height={25} />)}

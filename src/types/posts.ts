@@ -2,7 +2,7 @@ export type Post = {
   __typename: 'Post';
   id: string;
   name: string;
-  description: string;
+  tagline: string;
 };
 
 export type Edge = {
