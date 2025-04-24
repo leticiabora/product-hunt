@@ -6,6 +6,7 @@ import Container from '../../Container/Container';
 import { gql, useLazyQuery } from '@apollo/client';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { Response } from '@/types/posts';
+import Skeleton from '@/components/Skeleton/Skeleton';
 
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
@@ -92,11 +93,6 @@ const Homepage = () => {
         {TYPES.map((tab) => (
           <button
             key={tab.id}
-            role="tab"
-            id={`tab-${tab.id}`}
-            aria-selected={activeTab === tab.order}
-            aria-controls={`panel-${tab.id}`}
-            className={`tab-button ${activeTab === tab.order ? 'active' : ''}`}
             onClick={() => onTabChange(tab.order)}
           >
             {tab.name}
@@ -113,7 +109,7 @@ const Homepage = () => {
         ) : (
           <p>No Posts</p>
         )}
-        {loadingMore && <p>Loading...</p>}
+        {loadingMore && Array.from({ length: 10 }).map((_, index) => <Skeleton key={index} height={25} />)}
       </div>
     </Container>
   );
