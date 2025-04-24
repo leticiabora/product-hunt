@@ -1,8 +1,9 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Container from '../../Container/Container';
 import { gql, useLazyQuery } from '@apollo/client';
-import { useEffect, useRef, useState } from 'react';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { Response } from '@/types/posts';
 
@@ -62,6 +63,15 @@ const Homepage = () => {
     }
   }, [data]);
 
+  const router = useRouter();
+  const params = useSearchParams();
+  const query = params.get('type');
+
+  useEffect(() => {
+    const tab = query ?? TYPES[0].order;
+    setActiveTab(tab)
+  }, []);
+
   useEffect(() => {
     fetchPosts({ variables: { first: 10, order: activeTab } });
   }, [activeTab]);
@@ -69,6 +79,8 @@ const Homepage = () => {
   const onTabChange = (order: string) => {
     setActiveTab(order);
     setHasMore(true);
+
+    router.push(`/?type=${order}`, undefined, { shallow: true })
   };
 
   if (loading) return <p>Loading...</p>;

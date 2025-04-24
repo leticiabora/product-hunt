@@ -4,15 +4,21 @@ import { ClientError } from 'graphql-request';
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 interface Variables {
-    first: number,
-    after: string | undefined,
-    order: string,
-};
+  first: number;
+  after: string | undefined;
+  order: string;
+}
 
 const useInfiniteScroll = (
   data: Response,
   setData: React.Dispatch<React.SetStateAction<Response>>,
-  fetchMore: (options: { updateQuery: (prev: ServerResponse, { fetchMoreResult }: { fetchMoreResult: ServerResponse }) => ServerResponse, variables: Variables }) => Promise<ApolloQueryResult<ServerResponse>>,
+  fetchMore: (options: {
+    updateQuery: (
+      prev: ServerResponse,
+      { fetchMoreResult }: { fetchMoreResult: ServerResponse },
+    ) => ServerResponse;
+    variables: Variables;
+  }) => Promise<ApolloQueryResult<ServerResponse>>,
   order: string,
   loading: boolean,
   hasMore: boolean,
@@ -30,20 +36,26 @@ const useInfiniteScroll = (
       await fetchMore({
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev;
-      
-          const edges = [...(prev?.posts?.edges ?? []), ...(fetchMoreResult?.posts?.edges ?? [])];
-      
+
+          const uniqueIds = new Set(prev.posts.edges.map((edge) => edge.node.id));
+
+          const filterEdges = fetchMoreResult.posts.edges.filter(
+            (edge) => !uniqueIds.has(edge.node.id),
+          );
+
+          const edges = [...(prev?.posts?.edges ?? []), ...filterEdges];
+
           const updatedPosts = {
             ...fetchMoreResult.posts,
             edges,
             pageInfo: fetchMoreResult.posts.pageInfo,
           };
-      
+
           const checkHasMore = fetchMoreResult?.posts?.pageInfo?.hasNextPage ?? false;
-      
+
           setData(updatedPosts);
           setHasMore(checkHasMore);
-      
+
           return {
             posts: updatedPosts,
           };
@@ -54,7 +66,6 @@ const useInfiniteScroll = (
           order,
         },
       });
-      
     } catch (error) {
       const newError = error as ClientError;
       setError(newError);
