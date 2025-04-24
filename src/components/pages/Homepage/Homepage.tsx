@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Container from '../../Container/Container';
 import { gql, useLazyQuery } from '@apollo/client';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
@@ -63,7 +63,6 @@ const Homepage = () => {
     }
   }, [data]);
 
-  const router = useRouter();
   const params = useSearchParams();
   const query = params.get('type');
 
