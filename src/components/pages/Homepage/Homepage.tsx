@@ -1,10 +1,10 @@
 'use client';
 
-import { Response, ServerResponse } from '@/types/posts';
 import Container from '../../Container/Container';
 import { gql, useLazyQuery } from '@apollo/client';
 import { useEffect, useRef, useState } from 'react';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import { Response } from '@/types/posts';
 
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
@@ -30,9 +30,14 @@ const TYPES = [
   { id: 'pop', order: 'VOTES', name: 'Popular' },
 ];
 
-// const Homepage = ({ posts }: ServerResponse) => {
-  const Homepage = () => {
-  const [postsList, setPostsList] = useState([]);
+const Homepage = () => {
+  const [postsList, setPostsList] = useState<Response>({
+    edges: [],
+    pageInfo: {
+      hasNextPage: false,
+      endCursor: null,
+    },
+  });
   const [fetchPosts, { loading, error, data, fetchMore }] = useLazyQuery(GET_POSTS);
   const [hasMore, setHasMore] = useState(true);
 
@@ -40,18 +45,25 @@ const TYPES = [
 
   const lastItemRef = useRef(null);
 
-  const { loadMore, loadingMore } = useInfiniteScroll(postsList, setPostsList, fetchMore, activeTab, loading, hasMore, setHasMore, lastItemRef);
-
+  const { loadingMore } = useInfiniteScroll(
+    postsList,
+    setPostsList,
+    fetchMore,
+    activeTab,
+    loading,
+    hasMore,
+    setHasMore,
+    lastItemRef,
+  );
 
   useEffect(() => {
     if (data?.posts) {
       setPostsList(data.posts);
     }
-  }, [data])
+  }, [data]);
 
   useEffect(() => {
     fetchPosts({ variables: { first: 10, order: activeTab } });
-    console.log('changed!', activeTab);
   }, [activeTab]);
 
   const onTabChange = (order: string) => {
@@ -63,7 +75,6 @@ const TYPES = [
 
   if (error) return <p>Error!</p>;
 
-  console.log('loadingMore', loadingMore)
   return (
     <Container>
       <div style={{ display: 'flex', flexDirection: 'row', gap: 20 }}>
@@ -81,15 +92,17 @@ const TYPES = [
           </button>
         ))}
       </div>
-      <button onClick={() => loadMore()}>Load More</button>
       <div>
-        {postsList?.edges?.length ? postsList.edges.map((post, index) => (
-          <p key={post.node.id} ref={index === postsList.edges.length - 1 ? lastItemRef : null}>
-            {post.node.name}
-          </p>
-        )): <p>No Posts</p>}
+        {postsList?.edges?.length ? (
+          postsList.edges.map((post, index) => (
+            <p key={post.node.id} ref={index === postsList.edges.length - 1 ? lastItemRef : null}>
+              {post.node.name}
+            </p>
+          ))
+        ) : (
+          <p>No Posts</p>
+        )}
         {loadingMore && <p>Loading...</p>}
-        {/* {!hasMore && postsList.edges.length > 0 && <p>No more posts</p>} */}
       </div>
     </Container>
   );

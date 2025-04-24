@@ -1,18 +1,28 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Response, ServerResponse } from '@/types/posts';
+import { ApolloQueryResult } from '@apollo/client';
+import { ClientError } from 'graphql-request';
+import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
+
+interface Variables {
+    first: number,
+    after: string | undefined,
+    order: string,
+};
 
 const useInfiniteScroll = (
-  data,
-  setData,
-  fetchMore,
-  order,
-  loading,
-  hasMore,
-  setHasMore,
-  lastItemRef,
+  data: Response,
+  setData: React.Dispatch<React.SetStateAction<Response>>,
+  fetchMore: (options: { updateQuery: (prev: ServerResponse, { fetchMoreResult }: { fetchMoreResult: ServerResponse }) => ServerResponse, variables: Variables }) => Promise<ApolloQueryResult<ServerResponse>>,
+  order: string,
+  loading: boolean,
+  hasMore: boolean,
+  setHasMore: React.Dispatch<React.SetStateAction<boolean>>,
+  lastItemRef: RefObject<HTMLElement | null>,
 ) => {
   const lastCursor = data?.edges?.at(-1)?.cursor;
-  const [loadingMore, setLoadingMore] = useState(false);
-  const timeoutRef = useRef(null);
+  const [loadingMore, setLoadingMore] = useState<boolean>(false);
+  const [error, setError] = useState<ClientError | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout>(null);
 
   const loadMore = useCallback(async () => {
     setLoadingMore(true);
@@ -20,20 +30,20 @@ const useInfiniteScroll = (
       await fetchMore({
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev;
-
-          console.log('fetchMoreResult', fetchMoreResult);
-
+      
           const edges = [...(prev?.posts?.edges ?? []), ...(fetchMoreResult?.posts?.edges ?? [])];
-
+      
           const updatedPosts = {
             ...fetchMoreResult.posts,
             edges,
             pageInfo: fetchMoreResult.posts.pageInfo,
           };
-
+      
+          const checkHasMore = fetchMoreResult?.posts?.pageInfo?.hasNextPage ?? false;
+      
           setData(updatedPosts);
-          setHasMore(fetchMoreResult.posts.pageInfo.hasNextPage);
-
+          setHasMore(checkHasMore);
+      
           return {
             posts: updatedPosts,
           };
@@ -44,9 +54,17 @@ const useInfiniteScroll = (
           order,
         },
       });
+      
     } catch (error) {
-      console.error('Error fetching more data:', error);
-      setData({ posts: [] });
+      const newError = error as ClientError;
+      setError(newError);
+      setData({
+        edges: [],
+        pageInfo: {
+          hasNextPage: false,
+          endCursor: null,
+        },
+      });
       setHasMore(false);
     } finally {
       setLoadingMore(false);
@@ -77,6 +95,7 @@ const useInfiniteScroll = (
   return {
     loadMore,
     loadingMore,
+    error,
   };
 };
 

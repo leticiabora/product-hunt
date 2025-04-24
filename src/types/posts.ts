@@ -10,12 +10,19 @@ export type Edge = {
   node: Post;
 };
 
+export type PageInfo = {
+  hasNextPage: boolean;
+  endCursor: string | null;
+} | undefined;
+
 export type ServerResponse = {
   posts: {
     edges: Edge[];
-  }
+    pageInfo?: PageInfo;
+  };
 };
 
 export type Response = {
   edges: Edge[];
+  pageInfo?: PageInfo;
 };
