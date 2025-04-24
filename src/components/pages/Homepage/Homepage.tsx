@@ -8,6 +8,8 @@ import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { Response } from '@/types/posts';
 import Skeleton from '@/components/Skeleton/Skeleton';
 
+import * as S from './Homepage.styles';
+
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
     posts(first: $first, after: $after, order: $order) {
@@ -28,8 +30,8 @@ const GET_POSTS = gql`
 `;
 
 const TYPES = [
-  { id: 'new', order: 'NEWEST', name: 'Newest' },
   { id: 'pop', order: 'VOTES', name: 'Popular' },
+  { id: 'new', order: 'NEWEST', name: 'Newest' },
 ];
 
 const Homepage = () => {
@@ -69,7 +71,7 @@ const Homepage = () => {
 
   useEffect(() => {
     const tab = query ?? TYPES[0].order;
-    setActiveTab(tab)
+    setActiveTab(tab);
   }, []);
 
   useEffect(() => {
@@ -88,30 +90,38 @@ const Homepage = () => {
   if (error) return <p>Error!</p>;
 
   return (
-    <Container>
-      <div style={{ display: 'flex', flexDirection: 'row', gap: 20 }}>
-        {TYPES.map((tab) => (
-          <button
+    <>
+      <S.Wrapper>
+        {TYPES.map((tab, index) => (
+          <S.TabButton
             key={tab.id}
+            $active={tab.order === activeTab}
+            $position={index === 0 ? 'left' : 'right'}
             onClick={() => onTabChange(tab.order)}
           >
             {tab.name}
-          </button>
+          </S.TabButton>
         ))}
-      </div>
-      <div>
-        {postsList?.edges?.length ? (
-          postsList.edges.map((post, index) => (
-            <p key={post.node.id} ref={index === postsList.edges.length - 1 ? lastItemRef : null}>
-              {post.node.name}
-            </p>
-          ))
-        ) : (
-          <p>No Posts</p>
-        )}
-        {loadingMore && Array.from({ length: 10 }).map((_, index) => <Skeleton key={index} height={25} />)}
-      </div>
-    </Container>
+      </S.Wrapper>
+      <Container>
+        <S.TabContent>
+          {postsList?.edges?.length ? (
+            postsList.edges.map((post, index) => (
+              <S.Item
+                key={post.node.id}
+                ref={index === postsList.edges.length - 1 ? lastItemRef : null}
+              >
+                {post.node.name}
+              </S.Item>
+            ))
+          ) : (
+            <p>No Posts</p>
+          )}
+          {loadingMore &&
+            Array.from({ length: 10 }).map((_, index) => <Skeleton key={index} height={25} />)}
+        </S.TabContent>
+      </Container>
+    </>
   );
 };
 
