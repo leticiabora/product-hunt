@@ -10,6 +10,7 @@ import Skeleton from '@/components/Skeleton/Skeleton';
 
 import * as S from './Homepage.styles';
 import LinkContainer from '@/components/LinkContainer/LinkContainer';
+import Modal from '@/components/Modal/Modal';
 
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
@@ -46,6 +47,7 @@ const Homepage = () => {
   });
   const [fetchPosts, { loading, error, data, fetchMore }] = useLazyQuery(GET_POSTS);
   const [hasMore, setHasMore] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
   const [activeTab, setActiveTab] = useState(TYPES[0].order);
 
@@ -93,18 +95,29 @@ const Homepage = () => {
 
   return (
     <>
+      <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
+        <div style={{ color: 'white', height: '20px' }}>
+          test
+          test
+          test
+          test
+          test
+          test
+        </div>
+      </Modal>
       <S.Wrapper>
         {TYPES.map((tab, index) => (
           <S.TabButton
-            key={tab.id}
-            $active={tab.order === activeTab}
-            $position={index === 0 ? 'left' : 'right'}
-            onClick={() => onTabChange(tab.order)}
+          key={tab.id}
+          $active={tab.order === activeTab}
+          $position={index === 0 ? 'left' : 'right'}
+          onClick={() => onTabChange(tab.order)}
           >
             {tab.name}
           </S.TabButton>
         ))}
       </S.Wrapper>
+        <button onClick={() => setOpenModal(true)}>Open Modal</button>
       <Container>
         <S.TabContent>
           {postsList?.edges?.length ? (
