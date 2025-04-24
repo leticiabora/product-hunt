@@ -80,7 +80,7 @@ const Homepage = () => {
     setActiveTab(order);
     setHasMore(true);
 
-    router.push(`/?type=${order}`, undefined, { shallow: true })
+    window.history.pushState({}, '', `/?type=${order}`);
   };
 
   if (loading) return <p>Loading...</p>;
