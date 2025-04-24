@@ -9,6 +9,7 @@ import { Response } from '@/types/posts';
 import Skeleton from '@/components/Skeleton/Skeleton';
 
 import * as S from './Homepage.styles';
+import { Card } from '@/components/Card/Card.styles';
 
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
@@ -107,12 +108,12 @@ const Homepage = () => {
         <S.TabContent>
           {postsList?.edges?.length ? (
             postsList.edges.map((post, index) => (
-              <S.Item
+              <Card
                 key={post.node.id}
                 ref={index === postsList.edges.length - 1 ? lastItemRef : null}
               >
                 {post.node.name}
-              </S.Item>
+              </Card>
             ))
           ) : (
             <p>No Posts</p>

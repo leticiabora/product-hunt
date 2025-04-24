@@ -9,10 +9,15 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html {
+    font-size: 100%;
+  }
+
   body {
     font-family: var(--font-inter);
-    font-size: 16px;
+    font-size: 1rem;
     margin: 0;
     padding: 0;
+    font-size: 1rem;
   }
 `;

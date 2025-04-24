@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   width: 100%;
   display: flex;
-  gap: 20px;
+  gap: 1rem;
   border-bottom: 1px solid lightGray;
 `;
 
@@ -13,10 +13,10 @@ export const TabButton = styled.div<{
 }>`
   display: flex;
   width: 100%;
-  padding: 16px;
+  padding: 1rem;
   justify-content: center;
   position: relative;
-  font-weight: 600;
+  font-weight: 500;
   color: ${({ $active }) => ($active ? '#d75834' : 'gray')};
   &::after {
     content: '';
@@ -37,6 +37,8 @@ export const TabContent = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  gap: 16px;
+  margin: 24px 0;
 `;
 
 export const Item = styled.p`
