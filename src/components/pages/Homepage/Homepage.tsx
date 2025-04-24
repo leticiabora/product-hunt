@@ -19,6 +19,7 @@ const GET_POSTS = gql`
           id
           name
           tagline
+          slug
         }
         cursor
       }
@@ -113,6 +114,7 @@ const Homepage = () => {
                   ref={index === postsList.edges.length - 1 ? lastItemRef : null}
                 >
                   <S.Item>{post.node.name}</S.Item>
+                  <S.Item>{post.node.slug}</S.Item>
                   <S.Item>{post.node.tagline}</S.Item>
                 </S.Card>
               </LinkContainer>

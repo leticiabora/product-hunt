@@ -3,6 +3,7 @@ export type Post = {
   id: string;
   name: string;
   tagline: string;
+  slug: string;
 };
 
 export type Edge = {

@@ -31,6 +31,9 @@ export const TabButton = styled.div<{
     border-top-left-radius: ${({ $position }) => ($position === 'right' ? '8px' : '0')};
     border-bottom-left-radius: ${({ $position }) => ($position === 'right' ? '8px' : '0')};
   }
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const TabContent = styled.div`
