@@ -43,4 +43,17 @@ export const TabContent = styled.div`
 
 export const Item = styled.p`
   width: 100%;
+  margin: 0;
 `;
+
+export const Card = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+  padding: 1rem 0.5rem;
+  gap: 0.5rem;
+`;
+
