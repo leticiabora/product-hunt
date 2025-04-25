@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import * as S from './Modal.styles';
+import CloseIcon from '@/assets/icons/Close';
 
 interface ModalProps {
   isOpen: boolean;
@@ -15,20 +17,27 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
       }
     };
     document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = originalStyle;
+    };
   }, [onClose]);
 
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div role="dialog" aria-modal="true" onClick={onClose} style={{ position: 'fixed', left: 0, right: 0, bottom: 0, top: 0, backgroundColor: '#000', opacity: '70%', overflow: 'hidden' }}>
-      <div onClick={(e) => e.stopPropagation()}>
-        <button onClick={onClose}>X</button>
-        <div style={{ overflowY: 'scroll' }}>
-        {children}
-        </div>
-      </div>
-    </div>,
+    <S.Overlay role="dialog" aria-modal="true" onClick={onClose}>
+      <S.Content onClick={(e) => e.stopPropagation()}>
+        <S.CloseButton onClick={onClose}>
+          <CloseIcon width={30} height={30} />
+        </S.CloseButton>
+        <S.Container>{children}</S.Container>
+      </S.Content>
+    </S.Overlay>,
     document.body,
   );
 };
