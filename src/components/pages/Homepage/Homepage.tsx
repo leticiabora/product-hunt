@@ -91,7 +91,7 @@ const Homepage = () => {
 
   if (loading) return <p>Loading...</p>;
 
-  console.log('error', error);
+  // console.log('list', postsList);
   if (error) return <p>Error!</p>;
 
 
@@ -112,6 +112,7 @@ const Homepage = () => {
         {TYPES.map((tab, index) => (
           <S.TabButton
           key={tab.id}
+          role="tab"
           $active={tab.order === activeTab}
           $position={index === 0 ? 'left' : 'right'}
           onClick={() => onTabChange(tab.order)}
