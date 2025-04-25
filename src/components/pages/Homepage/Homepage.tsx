@@ -89,12 +89,6 @@ const Homepage = () => {
     window.history.pushState({}, '', `/?type=${order}`);
   };
 
-  if (loading) return <p>Loading...</p>;
-
-  // console.log('list', postsList);
-  if (error) return <p>Error!</p>;
-
-
   return (
     <>
     <h1>Product Hunt</h1>
@@ -113,6 +107,7 @@ const Homepage = () => {
           <S.TabButton
           key={tab.id}
           role="tab"
+          aria-selected={tab.order === activeTab}
           $active={tab.order === activeTab}
           $position={index === 0 ? 'left' : 'right'}
           onClick={() => onTabChange(tab.order)}
@@ -124,7 +119,8 @@ const Homepage = () => {
         <button onClick={() => setOpenModal(true)}>Open Modal</button>
       <Container>
         <S.TabContent>
-          {postsList?.edges?.length ? (
+          
+          {loading ? <p>Loading...</p> : error ? <p>Error!</p> : postsList?.edges?.length ? (
             postsList.edges.map((post, index) => (
               <LinkContainer key={post.node.id} href='/'>
                 <S.Card

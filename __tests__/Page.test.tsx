@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Homepage from '../src/components/pages/Homepage/Homepage';
 import { MockedProvider } from '@apollo/client/testing';
 import { gql } from '@apollo/client';
@@ -204,7 +204,7 @@ const mocks = [
       `,
       variables: {
         first: 10,
-        order: 'VOTES',
+        order: 'NEWEST',
       },
     },
     result: {
@@ -382,5 +382,43 @@ describe('Homepage elements', () => {
       expect(popularBtn).toBeInTheDocument();
       expect(newestBtn).toBeInTheDocument();
     });
+  });
+
+  it('Render Popular as active', async () => {
+    mockUseSearchParams.mockReturnValue(new URLSearchParams('type=VOTES'));
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <Homepage />
+      </MockedProvider>,
+    );
+
+    await waitFor(() => {
+      const popularBtn = screen.getByRole('tab', { name: /popular/i });
+      const newestBtn = screen.getByRole('tab', { name: /newest/i });
+
+      expect(popularBtn).toHaveAttribute('aria-selected', 'true');
+      expect(newestBtn).toHaveAttribute('aria-selected', 'false');
+    });
+  });
+
+  it('Check if the route updates when change tab', async () => {
+    mockUseSearchParams.mockReturnValue(new URLSearchParams('type=VOTES'));
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <Homepage />
+      </MockedProvider>,
+    );
+
+      const popularBtn = screen.getByRole('tab', { name: /popular/i });
+      const newestBtn = screen.getByRole('tab', { name: /newest/i });
+
+      expect(popularBtn).toHaveAttribute('aria-selected', 'true');
+      expect(newestBtn).toHaveAttribute('aria-selected', 'false');
+
+      fireEvent.click(newestBtn);
+
+      await waitFor(() => {
+        expect(newestBtn).toHaveAttribute('aria-selected', 'true');
+      });
   });
 });
