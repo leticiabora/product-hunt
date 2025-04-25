@@ -71,7 +71,7 @@ const Homepage = () => {
   }, [data]);
 
   const params = useSearchParams();
-  const query = params.get('type');
+  const query = params?.get('type');
 
   useEffect(() => {
     const tab = query ?? TYPES[0].order;

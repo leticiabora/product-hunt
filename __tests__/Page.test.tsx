@@ -23,10 +23,12 @@ beforeAll(() => {
   global.IntersectionObserver = MockIntersectionObserver;
 });
 
-const mockUseSearchParams = jest.fn();
+let params = new URLSearchParams('type=VOTES');
+
+const mockUseSearchParams = jest.fn(() => params);
 
 jest.mock('next/navigation', () => ({
-  useSearchParams: jest.fn(() => mockUseSearchParams()),
+  useSearchParams: () => mockUseSearchParams(),
 }));
 
 const mocks = [
@@ -334,15 +336,64 @@ const mocks = [
   },
 ];
 
+const emptyMock = [
+  {
+    request: {
+      query: gql`
+        query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
+          posts(first: $first, after: $after, order: $order) {
+            edges {
+              node {
+                id
+                name
+                tagline
+                slug
+              }
+              cursor
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+          }
+        }
+      `,
+      variables: {
+        first: 10,
+        order: 'VOTES',
+      },
+    },
+    result: {
+      data: {
+        posts: {
+          __typename: 'PostConnection',
+          edges: [],
+          pageInfo: {
+            __typename: 'PageInfo',
+            hasNextPage: false,
+            endCursor: null,
+          },
+        },
+      },
+    },
+  },
+];
+
+const errorMock = [
+  {
+    request: mocks[0].request,
+    error: new Error('Network error'),
+  },
+];
+
 describe('Homepage elements', () => {
   beforeEach(() => {
     mockUseSearchParams.mockReset();
+    params = new URLSearchParams('type=VOTES');
   });
   it('Render loading text', async () => {
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('type=VOTES'));
-
     render(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={mocks}>
         <Homepage />
       </MockedProvider>,
     );
@@ -350,10 +401,20 @@ describe('Homepage elements', () => {
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
   });
 
-  it('Render first and last item from the first request', async () => {
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('type=VOTES'));
+  it('Renders error message on query failure', async () => {
     render(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={errorMock}>
+        <Homepage />
+      </MockedProvider>
+    );
+    await waitFor(() => {
+      expect(screen.getByText(/error/i)).toBeInTheDocument();
+    });
+  });
+
+  it('Render first and last item from the first request', async () => {
+    render(
+      <MockedProvider mocks={mocks}>
         <Homepage />
       </MockedProvider>,
     );
@@ -368,9 +429,8 @@ describe('Homepage elements', () => {
   });
 
   it('Render two buttons with Popular and Newest labels', async () => {
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('type=VOTES'));
     render(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={mocks}>
         <Homepage />
       </MockedProvider>,
     );
@@ -384,10 +444,25 @@ describe('Homepage elements', () => {
     });
   });
 
-  it('Render Popular as active', async () => {
+  it('Render a message if there is no post', async () => {
     mockUseSearchParams.mockReturnValue(new URLSearchParams('type=VOTES'));
     render(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={emptyMock}>
+        <Homepage />
+      </MockedProvider>,
+    );
+
+    await waitFor(() => {
+      const message = screen.getByText(/no posts/i);
+
+      expect(message).toBeInTheDocument();
+    });
+  });
+
+  it('Render Popular as active on first render', async () => {
+    mockUseSearchParams.mockReturnValue(new URLSearchParams('type=VOTES'));
+    render(
+      <MockedProvider mocks={mocks}>
         <Homepage />
       </MockedProvider>,
     );
@@ -401,24 +476,48 @@ describe('Homepage elements', () => {
     });
   });
 
-  it('Check if the route updates when change tab', async () => {
-    mockUseSearchParams.mockReturnValue(new URLSearchParams('type=VOTES'));
+  it('Check if the active button updates when change tab', async () => {
     render(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={mocks}>
         <Homepage />
       </MockedProvider>,
     );
 
-      const popularBtn = screen.getByRole('tab', { name: /popular/i });
-      const newestBtn = screen.getByRole('tab', { name: /newest/i });
+    const popularBtn = screen.getByRole('tab', { name: /popular/i });
+    const newestBtn = screen.getByRole('tab', { name: /newest/i });
 
-      expect(popularBtn).toHaveAttribute('aria-selected', 'true');
-      expect(newestBtn).toHaveAttribute('aria-selected', 'false');
+    expect(popularBtn).toHaveAttribute('aria-selected', 'true');
+    expect(newestBtn).toHaveAttribute('aria-selected', 'false');
 
-      fireEvent.click(newestBtn);
+    const typeParams = params.get('type');
 
-      await waitFor(() => {
-        expect(newestBtn).toHaveAttribute('aria-selected', 'true');
-      });
+    expect(typeParams).toBe('VOTES');
+
+    fireEvent.click(newestBtn);
+
+    await waitFor(() => {
+      expect(newestBtn).toHaveAttribute('aria-selected', 'true');
+      expect(popularBtn).toHaveAttribute('aria-selected', 'false');
+      expect(screen.getByText('Feelix')).toBeInTheDocument();
+    });
+  });
+  it('Render items from "NEWEST" when tab is changed', async () => {
+    render(
+      <MockedProvider mocks={mocks}>
+        <Homepage />
+      </MockedProvider>,
+    );
+
+    const newestBtn = screen.getByRole('tab', { name: /newest/i });
+
+    fireEvent.click(newestBtn);
+
+    await waitFor(() => {
+      const firstPost = screen.getByText('Feelix');
+      const secondPost = screen.getByText('Aryson Window Live Mail to PST Converter');
+
+      expect(firstPost).toBeInTheDocument();
+      expect(secondPost).toBeInTheDocument();
+    });
   });
 });
