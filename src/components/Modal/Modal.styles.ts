@@ -13,6 +13,9 @@ export const Overlay = styled.div`
   justify-content: center;
   z-index: 1000;
   overflow: auto;
+  @media (max-width: ${theme.breakpoints.md}) {
+    overflow: hidden;
+  }
 `;
 
 export const Content = styled.div`
@@ -21,13 +24,13 @@ export const Content = styled.div`
   width: 100%;
   height: 100%;
   max-width: 1020px;
+  @media (max-width: ${theme.breakpoints.md}) {
+    overflow: auto;
+  }
 `;
 
 export const Container = styled.div`
-display: flex;
-  @media (max-width: ${theme.breakpoints.md}) {
-    height: 100%;
-  }
+  display: flex;
 `;
 
 export const CloseButton = styled.button`
@@ -50,11 +53,12 @@ export const CloseButton = styled.button`
   }
 `;
 
-export const GoBackButtonContainer = styled.div`
+export const MobileButtons = styled.div`
   display: none;
-    @media (max-width: ${theme.breakpoints.md}) {
-    display: flex;
+  @media (max-width: ${theme.breakpoints.md}) {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
     background-color: ${theme.background.default};
   }
 `;

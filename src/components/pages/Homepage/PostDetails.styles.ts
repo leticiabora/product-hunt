@@ -8,7 +8,7 @@ export const Container = styled.div`
   gap: 2rem;
   background-color: ${theme.background.default};
   overflow: auto;
-  borderradius: 2rem;
+  border-radius: 2rem;
 
   @media (min-width: ${theme.breakpoints.xs}) {
     padding: 1rem;
@@ -16,6 +16,12 @@ export const Container = styled.div`
 
   @media (min-width: ${theme.breakpoints.sm}) {
     padding: 2rem;
+  }
+
+  @media (max-width: ${theme.breakpoints.md}) {
+    overflow: auto;
+    height: 100%;
+    border-radius: 0;
   }
 `;
 

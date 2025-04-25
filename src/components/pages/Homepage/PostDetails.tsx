@@ -2,7 +2,7 @@ import Card from '@/components/Card/Card';
 import { gql, useQuery } from '@apollo/client';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import * as S from './PageDetails.styles';
+import * as S from './PostDetails.styles';
 
 interface Params {
   id: string;
@@ -81,7 +81,6 @@ const PostDetails = ({ id }: Params) => {
                 <S.Badge>{post?.topics?.edges?.[0].node.name}</S.Badge>
               </S.TitleWrapper>
             </S.HeaderContainer>
-
             <S.Description>{post.description}</S.Description>
           </S.ContentWrapper>
         </Card>
