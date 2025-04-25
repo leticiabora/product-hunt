@@ -112,6 +112,8 @@ const Homepage = () => {
         const slug = pathname.split('/posts/')[1];
         const fetchPostId = await fetchPost(slug);
         setPostId(fetchPostId);
+
+        return fetchPostId;
       }
     };
 
@@ -135,12 +137,13 @@ const Homepage = () => {
   };
 
   useEffect(() => {
-    if (postId) {
-      handleModal(postId);
+    if (!postId) {
+      window.history.pushState({}, '', '/');
+      return;
     }
-  }, [postId]);
 
-  
+    handleModal(postId);
+  }, [postId]);
 
   const closeModal = () => {
     setOpenModal(false);
