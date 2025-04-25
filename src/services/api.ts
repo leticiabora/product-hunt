@@ -1,5 +1,5 @@
 import { NEXT_PUBLIC_API } from '@/config/envs';
-import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, HttpLink, DocumentNode } from '@apollo/client';
 import { GraphQLClient, ClientError } from 'graphql-request';
 
 export const client = new ApolloClient({
@@ -10,7 +10,7 @@ export const client = new ApolloClient({
 });
 
 interface RequestParams {
-  query: string;
+  query: DocumentNode;
   variables?: Record<string, unknown>;
 }
 interface ServerRequestResponse<T> {
@@ -18,13 +18,16 @@ interface ServerRequestResponse<T> {
   error?: string | unknown;
 }
 
-export const serverRequest = async <T>({ query, variables }: RequestParams): Promise<ServerRequestResponse<T>> => {
-  const client = new GraphQLClient(NEXT_PUBLIC_API, {
+export const apiRequest = async <T>({ query, variables }: RequestParams): Promise<ServerRequestResponse<T>> => {
+  const clientS = new GraphQLClient(NEXT_PUBLIC_API, {
     headers: { Authorization: `Bearer ${process.env.DEV_TOKEN}` },
   });
 
+  console.log(clientS)
+  console.log(client)
+
   try {
-    const data = await client.request<{ posts: T }>(query, variables);
+    const data = await client.query<{ posts: T }>({ query, variables });
 
     return data;
   } catch (error) {
