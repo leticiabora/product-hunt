@@ -1,3 +1,4 @@
+import { theme } from '@/theme/theme';
 import styled from 'styled-components';
 
 export const Overlay = styled.div`
@@ -23,6 +24,10 @@ export const Content = styled.div`
 `;
 
 export const Container = styled.div`
+display: flex;
+  @media (max-width: ${theme.breakpoints.md}) {
+    height: 100%;
+  }
 `;
 
 export const CloseButton = styled.button`
@@ -40,4 +45,30 @@ export const CloseButton = styled.button`
   border: none;
   font-size: 18px;
   cursor: pointer;
+  @media (max-width: ${theme.breakpoints.md}) {
+    display: none;
+  }
+`;
+
+export const GoBackButtonContainer = styled.div`
+  display: none;
+    @media (max-width: ${theme.breakpoints.md}) {
+    display: flex;
+    width: 100%;
+    background-color: ${theme.background.default};
+  }
+`;
+
+export const GoBackButton = styled.button`
+  rotate: 180deg;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  border: none;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 2rem;
+  &:hover {
+    cursor: pointer;
+  }
 `;

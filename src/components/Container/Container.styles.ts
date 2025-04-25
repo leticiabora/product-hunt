@@ -1,3 +1,4 @@
+import { theme } from '@/theme/theme';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -7,19 +8,19 @@ export const Container = styled.div`
   margin-right: auto;
   margin-left: auto;
 
-  @media (min-width: 576px) {
+  @media (min-width: ${theme.breakpoints.xs}) {
     max-width: 540px;
   }
   
-  @media (min-width: 768px) {
+  @media (min-width: ${theme.breakpoints.sm}) {
     max-width: 720px;
   }
 
-  @media (min-width: 992px) {
+  @media (min-width: ${theme.breakpoints.md}) {
     max-width: 960px;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: ${theme.breakpoints.lg}) {
     max-width: 1140px;
   }
 `;

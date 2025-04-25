@@ -2,6 +2,7 @@ import Card from '@/components/Card/Card';
 import { gql, useQuery } from '@apollo/client';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import * as S from './PageDetails.styles';
 
 interface Params {
   id: string;
@@ -46,33 +47,12 @@ const PostDetails = ({ id }: Params) => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>error...</p>;
 
-  console.log('post', post);
-  console.log('data', data);
-
   return (
     post && (
-      <div
-        style={{
-          display: 'flex',
-          padding: '2rem',
-          flexDirection: 'column',
-          gap: '2rem',
-          backgroundColor: 'lightGray',
-          overflow: 'auto',
-          borderRadius: '2rem',
-        }}
-      >
+      <S.Container>
         <Card noPadding>
           {post?.media?.[0] && (
-            <div
-              style={{
-                position: 'relative',
-                width: '100%',
-                height: '200px',
-                borderRadius: '0.5rem',
-                overflow: 'hidden',
-              }}
-            >
+            <S.ImageWrapper>
               <Image
                 src={post.media[0].url}
                 alt={`top image for ${post?.name}`}
@@ -80,78 +60,32 @@ const PostDetails = ({ id }: Params) => {
                 objectPosition="center"
                 fill
               />
-            </div>
+            </S.ImageWrapper>
           )}
         </Card>
         <Card>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            <div style={{ display: 'flex', gap: '1.5rem' }}>
+          <S.ContentWrapper>
+            <S.HeaderContainer>
               {post?.thumbnail && (
-                <div
-                  style={{
-                    position: 'relative',
-                    width: '100px',
-                    height: '100px',
-                    borderRadius: '1.2rem',
-                    overflow: 'hidden',
-                  }}
-                >
+                <S.Thumbnail>
                   <Image
                     src={post?.thumbnail?.url}
                     alt={`thumbnail image for ${post?.name}`}
-                    objectFit="contain"
+                    objectFit="cover"
                     fill
                   />
-                </div>
+                </S.Thumbnail>
               )}
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <h3
-                  style={{
-                    margin: 0,
-                    padding: 0,
-                    paddingTop: '1rem',
-                    fontWeight: 500,
-                    fontSize: '1.5rem',
-                  }}
-                >
-                  {post.name}
-                </h3>
-                <p
-                  style={{
-                    backgroundColor: 'lightGray',
-                    width: 'fit-content',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '0.7rem',
-                    textTransform: 'uppercase',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                  }}
-                >
-                  {post?.topics?.edges?.[0].node.name}
-                </p>
-              </div>
-            </div>
+              <S.TitleWrapper>
+                <S.Title>{post.name}</S.Title>
+                <S.Badge>{post?.topics?.edges?.[0].node.name}</S.Badge>
+              </S.TitleWrapper>
+            </S.HeaderContainer>
 
-            <div style={{ fontSize: '1.2rem', lineHeight: '1.8rem', color: 'gray' }}>
-              {post.description}
-              {post.description}
-              {post.description}
-              {post.description}
-              {post.description}
-              {post.description}
-              {post.description}
-            </div>
-          </div>
+            <S.Description>{post.description}</S.Description>
+          </S.ContentWrapper>
         </Card>
-      </div>
+      </S.Container>
     )
   );
 };

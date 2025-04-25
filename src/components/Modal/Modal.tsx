@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import * as S from './Modal.styles';
-import CloseIcon from '@/assets/icons/Close';
+import { ChevronIcon, CloseIcon } from '@/assets/icons';
 
 interface ModalProps {
   isOpen: boolean;
@@ -32,6 +32,11 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   return ReactDOM.createPortal(
     <S.Overlay role="dialog" aria-modal="true" onClick={onClose}>
       <S.Content onClick={(e) => e.stopPropagation()}>
+      <S.GoBackButtonContainer>
+        <S.GoBackButton>
+          <ChevronIcon width={30} height={30} />
+        </S.GoBackButton>
+      </S.GoBackButtonContainer>
         <S.CloseButton onClick={onClose}>
           <CloseIcon width={30} height={30} />
         </S.CloseButton>
