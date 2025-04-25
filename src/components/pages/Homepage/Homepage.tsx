@@ -91,10 +91,13 @@ const Homepage = () => {
 
   if (loading) return <p>Loading...</p>;
 
+  console.log('error', error);
   if (error) return <p>Error!</p>;
+
 
   return (
     <>
+    <h1>Product Hunt</h1>
       <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
         <div style={{ color: 'white', height: '20px' }}>
           test
