@@ -58,5 +58,8 @@ export const Card = styled.div`
   border-radius: 0.5rem;
   padding: 1rem 0.5rem;
   gap: 0.5rem;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
