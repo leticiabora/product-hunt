@@ -23,6 +23,14 @@ beforeAll(() => {
   global.IntersectionObserver = MockIntersectionObserver;
 });
 
+jest.mock('@apollo/client', () => ({
+  ApolloClient: jest.fn().mockImplementation(() => ({
+    query: jest.fn(),
+  })),
+  InMemoryCache: jest.fn(),
+  HttpLink: jest.fn(),
+}));
+
 let params = new URLSearchParams('type=VOTES');
 
 const mockUseSearchParams = jest.fn(() => params);

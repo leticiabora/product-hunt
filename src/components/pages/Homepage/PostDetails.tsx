@@ -1,11 +1,10 @@
-import Button from '@/components/Button/Button';
 import Card from '@/components/Card/Card';
 import { gql, useQuery } from '@apollo/client';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 interface Params {
-  id: number;
+  id: string;
 }
 
 const GET_POST = gql`
@@ -42,12 +41,13 @@ const PostDetails = ({ id }: Params) => {
     if (data?.post) {
       setPost(data.post);
     }
-  }, []);
+  }, [data]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>error...</p>;
 
   console.log('post', post);
+  console.log('data', data);
 
   return (
     post && (

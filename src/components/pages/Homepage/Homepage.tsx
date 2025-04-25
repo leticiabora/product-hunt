@@ -58,7 +58,7 @@ const Homepage = () => {
   // const { loading: postLoading, error: postError, data: postData } = useQuery(GET_POST);
   const [hasMore, setHasMore] = useState(true);
   const [openModal, setOpenModal] = useState(false);
-  const [postId, setPostId] = useState(null);
+  const [postId, setPostId] = useState<string | null>(null);
 
   const [activeTab, setActiveTab] = useState(TYPES[0].order);
 
@@ -129,9 +129,8 @@ const Homepage = () => {
     window.history.pushState({}, '', `/${queryUrl}${order}`);
   };
 
-  const handleModal = (id) => {
+  const handleModal = (id: string) => {
     window.history.pushState({}, '', `/posts/${id}${queryUrl}${query}`);
-    // setPostId(post.node.id);
     setOpenModal(true);
   };
 
@@ -171,7 +170,6 @@ const Homepage = () => {
           </S.TabButton>
         ))}
       </S.Wrapper>
-      <button onClick={() => setOpenModal(true)}>Open Modal</button>
       <Container>
         <S.TabContent>
           {loading ? (
