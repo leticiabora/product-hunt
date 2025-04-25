@@ -1,3 +1,4 @@
+import Button from '@/components/Button/Button';
 import Card from '@/components/Card/Card';
 import { gql, useQuery } from '@apollo/client';
 import Image from 'next/image';
@@ -131,6 +132,7 @@ const PostDetails = ({ id }: Params) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    color: 'white',
                   }}
                 >
                   {post?.topics?.edges?.[0].node.name}
@@ -148,10 +150,6 @@ const PostDetails = ({ id }: Params) => {
               {post.description}
             </div>
           </div>
-        </Card>
-
-        <Card>
-          <button></button>
         </Card>
       </div>
     )
