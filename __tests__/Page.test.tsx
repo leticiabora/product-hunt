@@ -3,6 +3,32 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Homepage from '../src/components/pages/Homepage/Homepage';
 import { MockedProvider } from '@apollo/client/testing';
 import { gql } from '@apollo/client';
+import { apiRequest } from '@/services/api';
+
+jest.mock('@apollo/client', () => {
+  const actualApolloClient = jest.requireActual('@apollo/client');
+  return {
+    ...actualApolloClient,
+    ApolloClient: jest.fn().mockImplementation(() => ({
+      query: jest.fn().mockResolvedValue({ data: {} }),
+    })),
+    InMemoryCache: jest.fn(() => ({})),
+    HttpLink: jest.fn(() => ({})),
+    gql: actualApolloClient.gql,
+  };
+});
+
+jest.mock('@/services/api', () => ({
+  apiRequest: jest.fn(),
+}));
+
+(apiRequest as jest.Mock).mockImplementation(() =>
+  Promise.resolve({
+    data: {
+      posts: [{ id: '1', name: 'Post 1', tagline: 'Tagline 1' }],
+    },
+  })
+);
 
 beforeAll(() => {
   class MockIntersectionObserver {
@@ -23,13 +49,6 @@ beforeAll(() => {
   global.IntersectionObserver = MockIntersectionObserver;
 });
 
-jest.mock('@apollo/client', () => ({
-  ApolloClient: jest.fn().mockImplementation(() => ({
-    query: jest.fn(),
-  })),
-  InMemoryCache: jest.fn(),
-  HttpLink: jest.fn(),
-}));
 
 let params = new URLSearchParams('type=VOTES');
 
@@ -37,6 +56,7 @@ const mockUseSearchParams = jest.fn(() => params);
 
 jest.mock('next/navigation', () => ({
   useSearchParams: () => mockUseSearchParams(),
+  usePathname: jest.fn(() => '/'),
 }));
 
 const mocks = [
