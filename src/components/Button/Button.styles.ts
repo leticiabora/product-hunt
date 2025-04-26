@@ -30,7 +30,6 @@ export const ButtonContainer = styled.button<ButtonProps>`
   padding: 12px 16px;
   border: none;
   border-radius: 5px;
-  width: fit-content;
   font-size: 16px;
   cursor: pointer;
   transition: background 0.2s ease-in-out;

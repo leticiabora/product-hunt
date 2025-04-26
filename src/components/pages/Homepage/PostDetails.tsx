@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import * as S from './PostDetails.styles';
 import { Post } from '@/types/posts';
+import Button from '@/components/Button/Button';
 
 interface Params {
   id: string;
@@ -48,9 +49,13 @@ const PostDetails = ({ id }: Params) => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>error...</p>;
 
+  if(!post) {
+    return <p>No post!</p>;
+  }
+
   return (
-    post && (
-      <S.Container>
+    <S.Container>
+      <S.Wrapper>
         <Card noPadding>
           {post?.media?.[0] && (
             <S.ImageWrapper>
@@ -87,10 +92,20 @@ const PostDetails = ({ id }: Params) => {
             <S.Description>{post.description}</S.Description>
             <S.Description>{post.description}</S.Description>
             <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
           </S.ContentWrapper>
         </Card>
-      </S.Container>
-    )
+        <S.BottomCardWrapper>
+          <S.BottomCard>
+            <Button onClick={() => console.log('click')}>Get It</Button>
+            <Button variant="secondary" onClick={() => console.log('click')}>
+              Upvote (512)
+            </Button>
+          </S.BottomCard>
+        </S.BottomCardWrapper>
+      </S.Wrapper>
+    </S.Container>
   );
 };
 

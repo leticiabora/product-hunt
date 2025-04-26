@@ -3,6 +3,11 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
   padding: 2rem;
   flex-direction: column;
   gap: 2rem;
@@ -78,7 +83,7 @@ export const Badge = styled.div`
   border-radius: 0.7rem;
   text-transform: uppercase;
   color: white;
-  width: fit-content
+  width: fit-content;
 `;
 
 export const Description = styled.div`
@@ -86,4 +91,30 @@ export const Description = styled.div`
   line-height: 1.8rem;
   color: gray;
   font-weight: 300;
+`;
+
+export const BottomCardWrapper = styled.div`
+  display: flex;
+  position: relative;
+  height: 5rem;
+`;
+
+export const BottomCard = styled.div`
+  display: flex;
+  flex: 1;
+  gap: 1rem;
+  padding: 1rem;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 1.5rem 1rem;
+  background-color: white;
+  border-radius: 1rem 1rem 0 0;
+  box-shadow: -2px -3px 5px rgba(177, 177, 177, 0.1);
+  z-index: 10;
+  & > button {
+    flex: 1;
+  }
 `;
