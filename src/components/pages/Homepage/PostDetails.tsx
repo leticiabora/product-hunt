@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import * as S from './PostDetails.styles';
 import { Post } from '@/types/posts';
 import Button from '@/components/Button/Button';
+import Thumbnail from '@/components/Thumbnail/Thumbnail';
 
 interface Params {
   id: string;
@@ -49,7 +50,7 @@ const PostDetails = ({ id }: Params) => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>error...</p>;
 
-  if(!post) {
+  if (!post) {
     return <p>No post!</p>;
   }
 
@@ -72,14 +73,12 @@ const PostDetails = ({ id }: Params) => {
           <S.ContentWrapper>
             <S.HeaderContainer>
               {post?.thumbnail && (
-                <S.Thumbnail>
-                  <Image
-                    src={post?.thumbnail?.url}
-                    alt={`thumbnail image for ${post?.name}`}
-                    objectFit="cover"
-                    fill
-                  />
-                </S.Thumbnail>
+                <Thumbnail
+                  src={post?.thumbnail?.url}
+                  alt={`thumbnail image for ${post?.name}`}
+                  objectFit="cover"
+                  fill
+                />
               )}
               <S.TitleWrapper>
                 <S.Title>{post.name}</S.Title>
@@ -90,14 +89,14 @@ const PostDetails = ({ id }: Params) => {
           </S.ContentWrapper>
         </Card>
       </S.Wrapper>
-        <S.BottomCardWrapper>
-          <S.BottomCard>
-            <Button onClick={() => console.log('click')}>Get It</Button>
-            <Button variant="secondary" onClick={() => console.log('click')}>
-              Upvote (512)
-            </Button>
-          </S.BottomCard>
-        </S.BottomCardWrapper>
+      <S.BottomCardWrapper>
+        <S.BottomCard>
+          <Button onClick={() => console.log('click')}>Get It</Button>
+          <Button variant="secondary" onClick={() => console.log('click')}>
+            Upvote (512)
+          </Button>
+        </S.BottomCard>
+      </S.BottomCardWrapper>
     </S.Container>
   );
 };

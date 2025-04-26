@@ -60,14 +60,6 @@ export const HeaderContainer = styled.div`
   gap: 1.5rem;
 `;
 
-export const Thumbnail = styled.div`
-  position: relative;
-  width: 100px;
-  height: 100px;
-  border-radius: 1.2rem;
-  overflow: hidden;
-`;
-
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;

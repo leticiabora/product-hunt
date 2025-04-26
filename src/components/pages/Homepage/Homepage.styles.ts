@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   display: flex;
   gap: 1rem;
   border-bottom: 1px solid lightGray;
+  margin-bottom: 1rem;
 `;
 
 export const TabButton = styled.div<{
@@ -40,8 +41,7 @@ export const TabContent = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 16px;
-  margin: 24px 0;
+  gap: 1rem;
 `;
 
 export const Item = styled.p`
@@ -49,17 +49,18 @@ export const Item = styled.p`
   margin: 0;
 `;
 
-export const Card = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border: 1px solid gray;
-  border-radius: 0.5rem;
-  padding: 1rem 0.5rem;
-  gap: 0.5rem;
+export const CardContainer = styled.div`
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const CardWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  border-radius: 0.5rem;
+  padding: 1rem 0.5rem;
+  gap: 0.5rem;
+  background-color: white;
 `;
 

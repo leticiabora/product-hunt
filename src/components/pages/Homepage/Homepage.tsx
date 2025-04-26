@@ -12,6 +12,7 @@ import * as S from './Homepage.styles';
 import Modal from '@/components/Modal/Modal';
 import PostDetails from './PostDetails';
 import { apiRequest } from '@/services/api';
+import Thumbnail from '@/components/Thumbnail/Thumbnail';
 
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
@@ -22,6 +23,9 @@ const GET_POSTS = gql`
           name
           tagline
           slug
+          thumbnail {
+            url
+          }
         }
         cursor
       }
@@ -86,8 +90,6 @@ const Homepage = () => {
   const queryUrl = '?type=';
 
   const pathname = usePathname();
-
-  console.log('pathname', pathname, pathname.startsWith('/posts/'));
 
   const fetchPost = async (slug: string): Promise<string | null> => {
     try {
@@ -182,15 +184,25 @@ const Homepage = () => {
             <p>Error!</p>
           ) : postsList?.edges?.length ? (
             postsList.edges.map((post, index) => (
-              <S.Card
+              <S.CardContainer
                 key={post.node.id}
                 ref={index === postsList.edges.length - 1 ? lastItemRef : null}
                 onClick={() => setPostId(post.node.id)}
               >
-                <S.Item>{post.node.name}</S.Item>
-                <S.Item>{post.node.slug}</S.Item>
-                <S.Item>{post.node.tagline}</S.Item>
-              </S.Card>
+                <S.CardWrapper>
+                  <Thumbnail
+                    src={post?.node?.thumbnail?.url}
+                    alt={`thumbnail image for ${post?.node?.name}`}
+                    objectFit="cover"
+                    fill
+                  />
+                  <div>
+                  <S.Item>{post.node.name}</S.Item>
+                  <S.Item>{post.node.slug}</S.Item>
+                  <S.Item>{post.node.tagline}</S.Item>
+                  </div>
+                </S.CardWrapper>
+              </S.CardContainer>
             ))
           ) : (
             <S.Item>No Posts</S.Item>
