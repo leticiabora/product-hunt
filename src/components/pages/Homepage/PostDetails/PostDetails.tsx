@@ -1,5 +1,5 @@
 import Card from '@/components/Card/Card';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import * as S from './PostDetails.styles';
@@ -9,7 +9,6 @@ import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import Loading from './Loading/Loading';
 import StatusScreen from '../../StatusScreen/StatusScreen';
 import { GET_POST } from '@/services/queries/posts';
-import { redirect } from 'next/dist/server/api-utils';
 
 interface Params {
   id: string;
@@ -32,7 +31,7 @@ const PostDetails = ({ id }: Params) => {
   if (!post) {
     return null;
   }
-  
+
   return (
     <S.Container>
       <S.Wrapper>
