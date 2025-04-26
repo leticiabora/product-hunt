@@ -14,6 +14,7 @@ export const Overlay = styled.div`
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    background-color: ${theme.background.default};
   }
 `;
 
@@ -22,7 +23,6 @@ export const Content = styled.div`
   margin-right: auto;
   width: 100%;
   max-width: 1020px;
-  margin-bottom: 4rem;
   @media (max-width: ${theme.breakpoints.md}) {
     display: flex;
     flex-direction: column;
@@ -58,9 +58,9 @@ export const CloseButton = styled.button`
   @media (max-width: ${theme.breakpoints.md}) {
     display: none;
   }
-    &:hover {
-      background: ${theme.colors.primary}${theme.colors.opacity[9]};
-    }
+  &:hover {
+    background: ${theme.colors.primary}${theme.colors.opacity[9]};
+  }
 `;
 
 export const MobileButtons = styled.div`

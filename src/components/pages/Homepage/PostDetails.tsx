@@ -104,6 +104,7 @@ const PostDetails = ({ id }: Params) => {
             <S.Description>{post.description}</S.Description>
           </S.ContentWrapper>
         </Card>
+      </S.Wrapper>
         <S.BottomCardWrapper>
           <S.BottomCard>
             <Button onClick={() => console.log('click')}>Get It</Button>
@@ -112,7 +113,6 @@ const PostDetails = ({ id }: Params) => {
             </Button>
           </S.BottomCard>
         </S.BottomCardWrapper>
-      </S.Wrapper>
     </S.Container>
   );
 };

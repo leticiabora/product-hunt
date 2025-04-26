@@ -4,6 +4,8 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: ${theme.background.default};
+  border-radius: 2rem 2rem 0 0;
 `;
 
 export const Wrapper = styled.div`
@@ -13,7 +15,7 @@ export const Wrapper = styled.div`
   gap: 2rem;
   background-color: ${theme.background.default};
   overflow: auto;
-  border-radius: 2rem;
+  border-radius: 2rem 2rem 0 0;
 
   @media (max-width: ${theme.breakpoints.sm}) {
     padding: 1rem;
@@ -71,10 +73,12 @@ export const TitleWrapper = styled.div`
 export const Title = styled.h3`
   margin: 0;
   padding: 0;
-  padding-top: '1rem';
   font-weight: 400;
-  font-size: '1.5rem';
+  font-size: 1.5rem;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  flex: 1;
 `;
 
 export const Badge = styled.div`
@@ -95,31 +99,23 @@ export const Description = styled.div`
 
 export const BottomCardWrapper = styled.div`
   display: flex;
-  position: relative;
-  @media (max-width: ${theme.breakpoints.md}) {
-    height: 5rem;
-  }
+  position: sticky;
+  bottom: 0;
 `;
 
 export const BottomCard = styled.div`
   display: flex;
   flex: 1;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 2rem;
+  padding: 2rem 2rem;
   justify-content: space-between;
-  position: fixed;
-  bottom: 0;
-  right: 13%;
-  left: 13%;
-  padding: 1.5rem 1rem;
   background-color: white;
   border-radius: 1rem 1rem 0 0;
   box-shadow: -2px -3px 5px rgba(177, 177, 177, 0.1);
   z-index: 1000;
   @media (max-width: ${theme.breakpoints.md}) {
-    bottom: 0;
-    right: 0;
-    left: 0;
+    padding: 1.5rem 1.5rem;
+      gap: 1.5rem;
   }
   & > button {
     flex: 1;
