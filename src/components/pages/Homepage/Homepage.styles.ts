@@ -49,7 +49,7 @@ export const DateWrapper = styled.div`
   align-items: center;
   padding: 0.5rem 1rem;
   height: fit-content;
-  font-size: 1.2rem;
+  font-size: 1rem;
   justify-content: center;
   color: ${theme.colors.text.light};
 `;
@@ -168,7 +168,7 @@ export const ImagePlaceholder = styled.div<{
 `;
 
 export const Votes = styled.div<{
-  $isVoted: boolean;
+  $isVoted?: boolean;
 }>`
   position: absolute;
   right: -1rem;
