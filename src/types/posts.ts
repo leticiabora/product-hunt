@@ -22,7 +22,7 @@ export type Post = {
   slug: string;
   description: string;
   media: Array<{ url: string }>;
-  thumbnail?: { url: string };
+  thumbnail?: { url: string, type: string };
   topics: { edges: Edge[] };
 };
 

@@ -9,12 +9,13 @@ interface Params {
   objectFit?: string;
   width?: number;
   height?: number;
+  type?: string;
 }
 
-const Thumbnail: React.FC<Params> = ({ alt, src, fill = true, objectFit, width = 100, height = 100 }) => {
+const Thumbnail: React.FC<Params> = ({ alt, src, fill = true, objectFit, width = 100, height = 100, type }) => {
   return (
     <S.Thumbnail $width={width} $height={height}>
-      <Image src={src} alt={alt} fill={fill} objectFit={objectFit} />
+      <Image src={src} alt={alt} fill={fill} objectFit={objectFit} unoptimized={type !== 'image'} />
     </S.Thumbnail>
   );
 };

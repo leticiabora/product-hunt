@@ -25,6 +25,7 @@ const GET_POSTS = gql`
           slug
           thumbnail {
             url
+            type
           }
         }
         cursor
@@ -190,16 +191,21 @@ const Homepage = () => {
                 onClick={() => setPostId(post.node.id)}
               >
                 <S.CardWrapper>
-                  <Thumbnail
-                    src={post?.node?.thumbnail?.url}
-                    alt={`thumbnail image for ${post?.node?.name}`}
-                    objectFit="contain"
-                    width={80}
-                    height={80}
-                  />
+                  {post?.node?.thumbnail?.url ? (
+                    <Thumbnail
+                      src={post?.node?.thumbnail?.url}
+                      alt={`thumbnail image for ${post?.node?.name}`}
+                      objectFit="contain"
+                      width={80}
+                      height={80}
+                      type={post?.node?.thumbnail?.type}
+                    />
+                  ) : (
+                    <S.ImagePlaceholder $width={80} $height={80} />
+                  )}
                   <S.CardContent>
-                  <S.Title>{post.node.name}</S.Title>
-                  <S.Item>{post.node.tagline}</S.Item>
+                    <S.Title>{post.node.name}</S.Title>
+                    <S.Item>{post.node.tagline}</S.Item>
                   </S.CardContent>
                 </S.CardWrapper>
               </S.CardContainer>

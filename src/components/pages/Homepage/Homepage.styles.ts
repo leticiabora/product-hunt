@@ -46,11 +46,12 @@ export const TabContent = styled.div`
 `;
 
 export const Item = styled.p`
-  width: 99%;
+  flex: 1;
+  min-width: 0;
   margin: 0;
   color: ${theme.colors.primary};
-   text-overflow: ellipsis;
-  overflow: hidden; 
+  text-overflow: ellipsis;
+  overflow: hidden;
   white-space: nowrap;
 `;
 
@@ -66,7 +67,7 @@ export const CardWrapper = styled.div`
   &:hover {
     cursor: default;
     background-color: ${theme.colors.primary}${theme.colors.opacity[1]};
-      transition: background 0.2s ease-in-out;
+    transition: background 0.2s ease-in-out;
   }
 `;
 
@@ -78,4 +79,19 @@ export const Title = styled.h3`
 export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
-`
+  min-width: 0;
+`;
+
+export const ImagePlaceholder = styled.div<{
+  $width: number;
+  $height: number;
+}>`
+  display: flex;
+  flex-direction: column;
+  background-image: url(/product-hunt-cat.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: ${({ $width }) => $width}px;
+  height: ${({ $height }) => $height}px;
+`;
