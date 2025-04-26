@@ -27,11 +27,14 @@ export const TabButton = styled.div<{
     left: 0;
     width: 100%;
     height: 4px;
+    border-radius: 8px;
     background-color: ${({ $active }) => ($active ? '#d75834' : 'transparent')};
-    border-top-right-radius: ${({ $position }) => ($position === 'left' ? '8px' : '0')};
-    border-bottom-right-radius: ${({ $position }) => ($position === 'left' ? '8px' : '0')};
-    border-top-left-radius: ${({ $position }) => ($position === 'right' ? '8px' : '0')};
-    border-bottom-left-radius: ${({ $position }) => ($position === 'right' ? '8px' : '0')};
+    @media (max-width: ${theme.breakpoints.xs}) {
+      border-top-right-radius: ${({ $position }) => ($position === 'left' ? '8px' : '0')};
+      border-bottom-right-radius: ${({ $position }) => ($position === 'left' ? '8px' : '0')};
+      border-top-left-radius: ${({ $position }) => ($position === 'right' ? '8px' : '0')};
+      border-bottom-left-radius: ${({ $position }) => ($position === 'right' ? '8px' : '0')};
+    }
   }
   &:hover {
     cursor: pointer;
@@ -83,10 +86,11 @@ export const Title = styled.h3`
   font-weight: 300;
   margin: 0;
   display: flex;
+  width: fit-content;
   flex: 1;
   align-items: end;
   &:hover {
-  text-decoration: underline;
+    text-decoration: underline;
   }
   @media (max-width: ${theme.breakpoints.xs}) {
     font-size: 1rem;

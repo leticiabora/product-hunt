@@ -164,20 +164,22 @@ const Homepage = () => {
           <PostDetails id={postId} />
         </Modal>
       )}
-      <S.Wrapper>
-        {TYPES.map((tab, index) => (
-          <S.TabButton
-            key={tab.id}
-            role="tab"
-            aria-selected={tab.order === activeTab}
-            $active={tab.order === activeTab}
-            $position={index === 0 ? 'left' : 'right'}
-            onClick={() => onTabChange(tab.order)}
-          >
-            {tab.name}
-          </S.TabButton>
-        ))}
-      </S.Wrapper>
+      <Container>
+        <S.Wrapper>
+          {TYPES.map((tab, index) => (
+            <S.TabButton
+              key={tab.id}
+              role="tab"
+              aria-selected={tab.order === activeTab}
+              $active={tab.order === activeTab}
+              $position={index === 0 ? 'left' : 'right'}
+              onClick={() => onTabChange(tab.order)}
+            >
+              {tab.name}
+            </S.TabButton>
+          ))}
+        </S.Wrapper>
+      </Container>
       <Container>
         <S.TabContent>
           {loading ? (
@@ -217,7 +219,9 @@ const Homepage = () => {
             <S.Item>No Posts</S.Item>
           )}
           {loadingMore &&
-            Array.from({ length: 10 }).map((_, index) => <Skeleton key={index} variant={SkeletonType.RECTANGULAR} height={100} />)}
+            Array.from({ length: 10 }).map((_, index) => (
+              <Skeleton key={index} variant={SkeletonType.RECTANGULAR} height={100} />
+            ))}
         </S.TabContent>
       </Container>
     </>
