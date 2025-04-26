@@ -13,7 +13,7 @@ export const Overlay = styled.div`
   @media (max-width: ${theme.breakpoints.md}) {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: unset;
     background-color: ${theme.background.default};
   }
 `;
@@ -27,17 +27,14 @@ export const Content = styled.div`
   @media (max-width: ${theme.breakpoints.md}) {
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    // overflow: auto;
   }
 `;
 
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-    height: 90%;
-  @media (max-width: ${theme.breakpoints.md}) {
-    height: 100%;
-  }
+  min-height: auto;
 `;
 
 export const CloseButton = styled.button`

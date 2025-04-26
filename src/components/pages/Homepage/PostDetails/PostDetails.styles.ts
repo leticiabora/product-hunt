@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   gap: 2rem;
   background-color: ${theme.background.default};
-  // overflow: auto;
+  overflow: auto;
   border-radius: 1.5rem 1.5rem 0 0;
   flex: 1;
 
@@ -25,9 +25,8 @@ export const Wrapper = styled.div`
   }
 
   @media (max-width: ${theme.breakpoints.md}) {
-    // overflow: auto;
-    height: 100%;
     border-radius: 0;
+    flex: 1;
   }
 `;
 
