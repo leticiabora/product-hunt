@@ -103,6 +103,25 @@ const useInfiniteScroll = (
     };
   }, [loading, loadingMore, hasMore, loadMore]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!lastItemRef.current || loading || loadingMore || !hasMore) return;
+
+      const rect = lastItemRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const pixelHeight = 300;
+
+      if (rect.top < windowHeight + pixelHeight) {
+        loadMore();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [loading, loadingMore, hasMore, loadMore]);
+
   return {
     loadMore,
     loadingMore,

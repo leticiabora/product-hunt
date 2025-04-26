@@ -6,7 +6,6 @@ import Container from '../../Container/Container';
 import { gql, useLazyQuery } from '@apollo/client';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { PostDetailId, Response } from '@/types/posts';
-import Skeleton, { SkeletonType } from '@/components/Skeleton/Skeleton';
 import dayjs from 'dayjs';
 
 import * as S from './Homepage.styles';
@@ -15,6 +14,7 @@ import PostDetails from './PostDetails';
 import { apiRequest } from '@/services/api';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ArrowIcon, SearchIcon } from '@/assets/icons';
+import { Loading } from './Loading';
 
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
@@ -195,7 +195,7 @@ const Homepage = () => {
       <Container>
         <S.TabContent>
           {loading ? (
-            <p>Loading...</p>
+            <Loading />
           ) : error ? (
             <p>Error!</p>
           ) : postsList?.edges?.length ? (
@@ -230,10 +230,7 @@ const Homepage = () => {
           ) : (
             <S.Item>No Posts</S.Item>
           )}
-          {loadingMore &&
-            Array.from({ length: 10 }).map((_, index) => (
-              <Skeleton key={index} variant={SkeletonType.RECTANGULAR} height={100} />
-            ))}
+          {loadingMore && <Loading />}
         </S.TabContent>
       </Container>
     </>
