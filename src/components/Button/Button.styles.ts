@@ -1,5 +1,6 @@
 'use client';
 
+import { theme } from '@/theme/theme';
 import styled, { css, DefaultTheme } from 'styled-components';
 
 const buttonVariants = (theme: DefaultTheme) =>
@@ -34,6 +35,9 @@ export const ButtonContainer = styled.button<ButtonProps>`
   cursor: pointer;
   transition: background 0.2s ease-in-out;
   box-shadow: 2px 3px 4px rgba(170, 169, 169, 0.2);
+  @media (max-width: ${theme.breakpoints.md}) {
+    padding: 1rem 0.5rem;
+  }
 
   ${({ theme, $variant = 'primary' }) => buttonVariants(theme)[$variant]}
 `;
