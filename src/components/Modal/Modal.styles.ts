@@ -35,6 +35,8 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   min-height: auto;
+  overflow: auto;
+  flex: 1;
 `;
 
 export const CloseButton = styled.button`
