@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { SkeletonType } from './Skeleton';
+import { theme } from '@/theme/theme';
 
 export const Wrapper = styled.span<{
   $variant?: SkeletonType;
@@ -10,7 +11,7 @@ export const Wrapper = styled.span<{
   display: block;
   width: ${({ $width }) => $width};
   height: ${({ $height }) => $height};
-  background-color: lightGray;
+  background-color: ${theme.colors.primary}${theme.colors.opacity[3]};
   border-radius: ${({ $variant }) => ($variant === SkeletonType.CIRCULAR ? '50%' : '5px')};
 
   ${({ $variant }) =>

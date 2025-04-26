@@ -6,7 +6,7 @@ import Container from '../../Container/Container';
 import { gql, useLazyQuery } from '@apollo/client';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { PostDetailId, Response } from '@/types/posts';
-import Skeleton from '@/components/Skeleton/Skeleton';
+import Skeleton, { SkeletonType } from '@/components/Skeleton/Skeleton';
 
 import * as S from './Homepage.styles';
 import Modal from '@/components/Modal/Modal';
@@ -198,7 +198,6 @@ const Homepage = () => {
                       objectFit="contain"
                       width={80}
                       height={80}
-                      type={post?.node?.thumbnail?.type}
                     />
                   ) : (
                     <S.ImagePlaceholder $width={80} $height={80} />
@@ -214,7 +213,7 @@ const Homepage = () => {
             <S.Item>No Posts</S.Item>
           )}
           {loadingMore &&
-            Array.from({ length: 10 }).map((_, index) => <Skeleton key={index} height={25} />)}
+            Array.from({ length: 10 }).map((_, index) => <Skeleton key={index} variant={SkeletonType.RECTANGULAR} height={100} />)}
         </S.TabContent>
       </Container>
     </>
