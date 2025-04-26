@@ -58,6 +58,9 @@ export const CloseButton = styled.button`
   @media (max-width: ${theme.breakpoints.md}) {
     display: none;
   }
+    &:hover {
+      background: ${theme.colors.primary}${theme.colors.opacity[9]};
+    }
 `;
 
 export const MobileButtons = styled.div`
