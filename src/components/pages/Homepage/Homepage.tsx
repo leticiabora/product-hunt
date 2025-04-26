@@ -10,11 +10,11 @@ import dayjs from 'dayjs';
 
 import * as S from './Homepage.styles';
 import Modal from '@/components/Modal/Modal';
-import PostDetails from './PostDetails';
+import PostDetails from './PostDetails/PostDetails';
 import { apiRequest } from '@/services/api';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ArrowIcon, SearchIcon } from '@/assets/icons';
-import { Loading } from './Loading';
+import { Loading } from './Loading/Loading';
 
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
