@@ -1,3 +1,4 @@
+import Container from '@/components/Container/Container';
 import { theme } from '@/theme/theme';
 import styled from 'styled-components';
 
@@ -5,15 +6,32 @@ export const Wrapper = styled.div`
   width: 100%;
   display: flex;
   gap: 1rem;
-  border-bottom: 1px solid lightGray;
-  margin-bottom: 1rem;
+`;
+
+export const HeaderContent = styled(Container)`
+  background-color: white;
+  padding: 0 1rem 0 1rem;
+  @media (max-width: ${theme.breakpoints.md}) {
+    padding: 0;
+  }
 `;
 
 export const HeaderContainer = styled.div`
+  padding: 1rem 1rem 0 1rem;
   background-color: white;
-  padding: 1rem;
+  border-bottom: 1px solid ${theme.colors.border.primary};
   @media (max-width: ${theme.breakpoints.md}) {
-    padding: 0;
+    padding: 1rem 0;
+  }
+`;
+
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  @media (max-width: ${theme.breakpoints.md}) {
+    padding: 0 1rem;
   }
 `;
 
@@ -34,17 +52,6 @@ export const DateWrapper = styled.div`
   font-size: 1.2rem;
   justify-content: center;
   color: ${theme.colors.text.light};
-`;
-
-export const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  padding: 0;
-  @media (max-width: ${theme.breakpoints.md}) {
-    padding: 1rem;
-  }
 `;
 
 export const TabButton = styled.div<{ $active?: boolean }>`

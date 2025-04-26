@@ -164,7 +164,7 @@ const Homepage = () => {
         </Modal>
       )}
       <S.HeaderContainer>
-        <Container noBackground noPadding>
+        <S.HeaderContent>
           <S.Header>
             <S.ProfileWrapper>
               <Thumbnail
@@ -190,8 +190,9 @@ const Homepage = () => {
               </S.TabButton>
             ))}
           </S.Wrapper>
-        </Container>
+        </S.HeaderContent>
       </S.HeaderContainer>
+
       <Container>
         <S.TabContent>
           {loading ? (
