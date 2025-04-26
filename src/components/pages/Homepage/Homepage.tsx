@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import Container from '../../Container/Container';
 import { gql, useLazyQuery } from '@apollo/client';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { PostDetailId, Response } from '@/types/posts';
@@ -15,6 +14,7 @@ import { apiRequest } from '@/services/api';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ArrowIcon, SearchIcon } from '@/assets/icons';
 import { Loading } from './Loading/Loading';
+import StatusScreen from '../StatusScreen/StatusScreen';
 
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
@@ -198,9 +198,9 @@ const Homepage = () => {
           {loading ? (
             <Loading />
           ) : error ? (
-            <p>Error!</p>
-          ) : postsList?.edges?.length ? (
-            postsList.edges.map((post, index) => (
+            <StatusScreen />
+          ) : (
+            postsList?.edges.map((post, index) => (
               <S.CardContainer
                 key={post.node.id}
                 ref={index === postsList.edges.length - 1 ? lastItemRef : null}
@@ -228,8 +228,6 @@ const Homepage = () => {
                 </S.CardWrapper>
               </S.CardContainer>
             ))
-          ) : (
-            <S.Item>No Posts</S.Item>
           )}
           {loadingMore && <Loading />}
         </S.TabContent>

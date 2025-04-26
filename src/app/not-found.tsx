@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation';
+import StatusScreen from '@/components/pages/StatusScreen/StatusScreen';
 
 export default function NotFound() {
-  redirect('/');
+  return <StatusScreen message="Page not found!" backToHome />
 }
