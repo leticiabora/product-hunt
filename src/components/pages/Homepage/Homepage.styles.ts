@@ -53,6 +53,9 @@ export const Item = styled.p`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  display: flex;
+  flex: 1;
+  align-items: end;
 `;
 
 export const CardContainer = styled.div``;
@@ -75,12 +78,17 @@ export const CardWrapper = styled.div`
 export const Title = styled.h3`
   font-size: 1.3rem;
   font-weight: 300;
+  margin: 0;
+  display: flex;
+  flex: 1;
+  align-items: end;
 `;
 
 export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 0;
+  justify-content: space-between;
 `;
 
 export const ImagePlaceholder = styled.div<{
@@ -93,8 +101,8 @@ export const ImagePlaceholder = styled.div<{
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  $width: number;
-  $height: number;
+  width: 80px;
+  height: 80px;
 `;
 
 export const Votes = styled.div<{
@@ -106,8 +114,8 @@ export const Votes = styled.div<{
   border-radius: 1rem;
   border: 1px solid
     ${({ $isVoted }) => ($isVoted ? theme.colors.secondary : theme.colors.border.primary)};
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;

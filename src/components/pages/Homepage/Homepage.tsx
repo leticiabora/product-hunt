@@ -196,8 +196,8 @@ const Homepage = () => {
                     <Thumbnail
                       src={post?.node?.thumbnail?.url}
                       alt={`thumbnail image for ${post?.node?.name}`}
-                      width={80}
-                      height={80}
+                      width={60}
+                      height={60}
                     />
                   ) : (
                     <S.ImagePlaceholder $width={80} $height={80} />
