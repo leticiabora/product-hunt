@@ -45,7 +45,7 @@ export const TabContent = styled.div`
   gap: 1rem;
 `;
 
-export const Item = styled.p`
+export const Item = styled.div`
   flex: 1;
   min-width: 0;
   margin: 0;
@@ -53,9 +53,7 @@ export const Item = styled.p`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  display: flex;
-  flex: 1;
-  align-items: end;
+  line-height: 2rem;
 `;
 
 export const CardContainer = styled.div``;
@@ -69,9 +67,14 @@ export const CardWrapper = styled.div`
   background-color: white;
   position: relative;
   &:hover {
-    cursor: default;
+    cursor: pointer;
     background-color: ${theme.colors.primary}${theme.colors.opacity[1]};
     transition: background 0.2s ease-in-out;
+  }
+  @media (max-width: ${theme.breakpoints.xs}) {
+    padding: 1rem;
+    gap: 1rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -82,6 +85,13 @@ export const Title = styled.h3`
   display: flex;
   flex: 1;
   align-items: end;
+  &:hover {
+  text-decoration: underline;
+  }
+  @media (max-width: ${theme.breakpoints.xs}) {
+    font-size: 1rem;
+    line-height: 1;
+  }
 `;
 
 export const CardContent = styled.div`
@@ -125,4 +135,15 @@ export const Votes = styled.div<{
   display: flex;
   flex-direction: column;
   color: ${({ $isVoted }) => ($isVoted ? 'white' : theme.colors.text.primary)};
+  @media (max-width: ${theme.breakpoints.xs}) {
+    top: -0.5rem;
+    right: 0.5rem;
+    width: fit-content;
+    height: fit-content;
+    padding: 0.2rem;
+    flex-direction: row;
+  }
+  & > svg {
+    width: 20px;
+  }
 `;
