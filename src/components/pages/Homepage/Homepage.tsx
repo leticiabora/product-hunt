@@ -12,42 +12,9 @@ import Modal from '@/components/Modal/Modal';
 import PostDetails from './PostDetails/PostDetails';
 import { apiRequest } from '@/services/api';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
-import { ArrowIcon, SearchIcon } from '@/assets/icons';
-import { Loading } from './Loading/Loading';
-import StatusScreen from '../StatusScreen/StatusScreen';
-
-const GET_POSTS = gql`
-  query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
-    posts(first: $first, after: $after, order: $order) {
-      edges {
-        node {
-          id
-          name
-          tagline
-          slug
-          votesCount
-          thumbnail {
-            url
-            type
-          }
-        }
-        cursor
-      }
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-    }
-  }
-`;
-
-const GET_POST = gql`
-  query GetPost($slug: String!) {
-    post(slug: $slug) {
-      id
-    }
-  }
-`;
+import { SearchIcon } from '@/assets/icons';
+import PostList from './PostList';
+import { GET_POST_ID, GET_POSTS } from '@/services/queries/posts';
 
 const TYPES = [
   { id: 'pop', order: 'VOTES', name: 'Popular' },
@@ -63,8 +30,8 @@ const Homepage = () => {
     },
   });
   const [fetchPosts, { loading, error, data, fetchMore }] = useLazyQuery(GET_POSTS);
-  const [hasMore, setHasMore] = useState(true);
-  const [openModal, setOpenModal] = useState(false);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const [postId, setPostId] = useState<string | null>(null);
 
   const [activeTab, setActiveTab] = useState(TYPES[0].order);
@@ -96,15 +63,15 @@ const Homepage = () => {
 
   const fetchPost = async (slug: string): Promise<string | null> => {
     try {
-      const postDetail = await apiRequest<PostDetailId>({ query: GET_POST, variables: { slug } });
+      const postDetail = await apiRequest<PostDetailId>({ query: GET_POST_ID, variables: { slug } });
 
       if (postDetail?.data?.post?.id) {
         return postDetail.data.post.id;
       }
 
       return null;
-    } catch (err) {
-      console.log('Err', err);
+    } catch {
+      setPostId(null);
       return null;
     }
   };
@@ -193,14 +160,23 @@ const Homepage = () => {
         </S.HeaderContent>
       </S.HeaderContainer>
 
-      <S.ContainerList>
+          <PostList
+            loading={loading}
+            error={error}
+            postsList={postsList}
+            lastItemRef={lastItemRef}
+            onClick={(id) => setPostId(id)}
+            loadingMore={loadingMore} 
+            data={data}
+          />
+      {/* <S.ContainerList>
         <S.TabContent>
           {loading ? (
             <Loading />
           ) : error ? (
             <StatusScreen />
-          ) : (
-            postsList?.edges.map((post, index) => (
+          ) : postsList?.edges?.length ? (
+            postsList.edges.map((post, index) => (
               <S.CardContainer
                 key={post.node.id}
                 ref={index === postsList.edges.length - 1 ? lastItemRef : null}
@@ -228,10 +204,12 @@ const Homepage = () => {
                 </S.CardWrapper>
               </S.CardContainer>
             ))
+          ) : (
+            <S.Item>No Posts</S.Item>
           )}
           {loadingMore && <Loading />}
         </S.TabContent>
-      </S.ContainerList>
+      </S.ContainerList> */}
     </>
   );
 };

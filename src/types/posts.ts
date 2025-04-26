@@ -1,3 +1,5 @@
+import { RefObject } from "react";
+
 export type PostDetailId = {
   data: {
     post: {
@@ -6,7 +8,6 @@ export type PostDetailId = {
   }
   id: string;
 };
-
 
 export type Edge = {
   cursor: string;
