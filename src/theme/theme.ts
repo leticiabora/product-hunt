@@ -6,6 +6,9 @@ export const theme = {
       primary: '#000000',
       secondary: '#9f9f9f',
     },
+    border: {
+      primary: '#ececec',
+    },
     opacity: {
       0: '00',
       1: '1A',

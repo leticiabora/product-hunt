@@ -13,6 +13,7 @@ import Modal from '@/components/Modal/Modal';
 import PostDetails from './PostDetails';
 import { apiRequest } from '@/services/api';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
+import { ArrowIcon } from '@/assets/icons';
 
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
@@ -23,6 +24,7 @@ const GET_POSTS = gql`
           name
           tagline
           slug
+          votesCount
           thumbnail {
             url
             type
@@ -95,7 +97,6 @@ const Homepage = () => {
   const fetchPost = async (slug: string): Promise<string | null> => {
     try {
       const postDetail = await apiRequest<PostDetailId>({ query: GET_POST, variables: { slug } });
-      console.log('postDetail', postDetail);
 
       if (postDetail?.data?.post?.id) {
         return postDetail.data.post.id;
@@ -195,7 +196,6 @@ const Homepage = () => {
                     <Thumbnail
                       src={post?.node?.thumbnail?.url}
                       alt={`thumbnail image for ${post?.node?.name}`}
-                      objectFit="contain"
                       width={80}
                       height={80}
                     />
@@ -206,6 +206,10 @@ const Homepage = () => {
                     <S.Title>{post.node.name}</S.Title>
                     <S.Item>{post.node.tagline}</S.Item>
                   </S.CardContent>
+                  <S.Votes $isVoted={index === 6}>
+                    <ArrowIcon width={25} height={25} color={index === 6 ? 'white' : '#000'} />
+                    {post.node.votesCount}
+                  </S.Votes>
                 </S.CardWrapper>
               </S.CardContainer>
             ))

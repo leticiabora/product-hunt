@@ -19,8 +19,10 @@ const GET_POST = gql`
       tagline
       slug
       description
+      votesCount
       thumbnail {
         url
+        type
       }
       media {
         url
@@ -76,7 +78,6 @@ const PostDetails = ({ id }: Params) => {
                 <Thumbnail
                   src={post?.thumbnail?.url}
                   alt={`thumbnail image for ${post?.name}`}
-                  objectFit="cover"
                   fill
                 />
               )}
@@ -93,7 +94,7 @@ const PostDetails = ({ id }: Params) => {
         <S.BottomCard>
           <Button onClick={() => console.log('click')}>Get It</Button>
           <Button variant="secondary" onClick={() => console.log('click')}>
-            Upvote (512)
+            Upvote ({post.votesCount})
           </Button>
         </S.BottomCard>
       </S.BottomCardWrapper>

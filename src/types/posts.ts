@@ -23,6 +23,7 @@ export type Post = {
   description: string;
   media: Array<{ url: string }>;
   thumbnail?: { url: string, type: string };
+  votesCount: number;
   topics: { edges: Edge[] };
 };
 

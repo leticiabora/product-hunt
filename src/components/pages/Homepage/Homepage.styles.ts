@@ -64,6 +64,7 @@ export const CardWrapper = styled.div`
   padding: 1.5rem;
   gap: 1.5rem;
   background-color: white;
+  position: relative;
   &:hover {
     cursor: default;
     background-color: ${theme.colors.primary}${theme.colors.opacity[1]};
@@ -92,6 +93,28 @@ export const ImagePlaceholder = styled.div<{
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  width: ${({ $width }) => $width}px;
-  height: ${({ $height }) => $height}px;
+  $width: number;
+  $height: number;
+`;
+
+export const Votes = styled.div<{
+  $isVoted: boolean;
+}>`
+  position: absolute;
+  right: -1rem;
+  background: ${({ $isVoted }) => ($isVoted ? theme.colors.secondary : 'white')};
+  border-radius: 1rem;
+  border: 1px solid
+    ${({ $isVoted }) => ($isVoted ? theme.colors.secondary : theme.colors.border.primary)};
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  display: flex;
+  flex-direction: column;
+  color: ${({ $isVoted }) => ($isVoted ? 'white' : theme.colors.text.primary)};
 `;
