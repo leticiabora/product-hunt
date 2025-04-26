@@ -83,7 +83,11 @@ const PostDetails = ({ id }: Params) => {
               )}
               <S.TitleWrapper>
                 <S.Title>{post.name}</S.Title>
-                <S.Badge>{post?.topics?.edges?.[0].node.name}</S.Badge>
+                <S.BadgeContainer>
+                  {post?.topics?.edges?.slice(0, 3).map((topic) => (
+                    <S.Badge>{topic.node.name}</S.Badge>
+                  ))}
+                </S.BadgeContainer>
               </S.TitleWrapper>
             </S.HeaderContainer>
             <S.Description>{post.description}</S.Description>

@@ -78,12 +78,17 @@ export const Title = styled.h3`
   flex: 1;
 `;
 
+export const BadgeContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
 export const Badge = styled.div`
-  background-color: lightgray;
+  background-color: ${theme.background.default};
   padding: 0.5rem 1rem;
   border-radius: 0.7rem;
   text-transform: uppercase;
-  color: white;
+  color: ${theme.colors.text.light};
   width: fit-content;
 `;
 
