@@ -1,9 +1,12 @@
 import styled from "styled-components";
 
-export const Thumbnail = styled.div`
+export const Thumbnail = styled.div<({
+  $width: number;
+  $height: number
+})>`
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: ${({ $width }) => $width}px;
+  height: ${({ $height }) => $height}px;
   border-radius: 1.2rem;
   overflow: hidden;
 `;

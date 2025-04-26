@@ -193,14 +193,14 @@ const Homepage = () => {
                   <Thumbnail
                     src={post?.node?.thumbnail?.url}
                     alt={`thumbnail image for ${post?.node?.name}`}
-                    objectFit="cover"
-                    fill
+                    objectFit="contain"
+                    width={80}
+                    height={80}
                   />
-                  <div>
-                  <S.Item>{post.node.name}</S.Item>
-                  <S.Item>{post.node.slug}</S.Item>
+                  <S.CardContent>
+                  <S.Title>{post.node.name}</S.Title>
                   <S.Item>{post.node.tagline}</S.Item>
-                  </div>
+                  </S.CardContent>
                 </S.CardWrapper>
               </S.CardContainer>
             ))

@@ -11,10 +11,10 @@ interface Params {
   height?: number;
 }
 
-const Thumbnail: React.FC<Params> = ({ alt, src, fill, objectFit, width, height }) => {
+const Thumbnail: React.FC<Params> = ({ alt, src, fill = true, objectFit, width = 100, height = 100 }) => {
   return (
-    <S.Thumbnail>
-      <Image src={src} alt={alt} fill={fill} objectFit={objectFit} width={width} height={height} />
+    <S.Thumbnail $width={width} $height={height}>
+      <Image src={src} alt={alt} fill={fill} objectFit={objectFit} />
     </S.Thumbnail>
   );
 };

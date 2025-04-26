@@ -1,3 +1,4 @@
+import { theme } from '@/theme/theme';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
@@ -45,22 +46,36 @@ export const TabContent = styled.div`
 `;
 
 export const Item = styled.p`
-  width: 100%;
+  width: 99%;
   margin: 0;
+  color: ${theme.colors.primary};
+   text-overflow: ellipsis;
+  overflow: hidden; 
+  white-space: nowrap;
 `;
 
-export const CardContainer = styled.div`
-  &:hover {
-    cursor: pointer;
-  }
-`;
+export const CardContainer = styled.div``;
 
 export const CardWrapper = styled.div`
   width: 100%;
   display: flex;
   border-radius: 0.5rem;
-  padding: 1rem 0.5rem;
-  gap: 0.5rem;
+  padding: 1.5rem;
+  gap: 1.5rem;
   background-color: white;
+  &:hover {
+    cursor: default;
+    background-color: ${theme.colors.primary}${theme.colors.opacity[1]};
+      transition: background 0.2s ease-in-out;
+  }
 `;
 
+export const Title = styled.h3`
+  font-size: 1.3rem;
+  font-weight: 300;
+`;
+
+export const CardContent = styled.div`
+  display: flex;
+  flex-direction: column;
+`
