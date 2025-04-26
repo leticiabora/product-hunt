@@ -63,7 +63,6 @@ const Homepage = () => {
     },
   });
   const [fetchPosts, { loading, error, data, fetchMore }] = useLazyQuery(GET_POSTS);
-  // const { loading: postLoading, error: postError, data: postData } = useQuery(GET_POST);
   const [hasMore, setHasMore] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [postId, setPostId] = useState<string | null>(null);
