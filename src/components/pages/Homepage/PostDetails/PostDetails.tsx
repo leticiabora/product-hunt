@@ -50,8 +50,8 @@ const PostDetails = ({ id }: Params) => {
     }
   }, [data]);
 
-  
-  if (!loading) {
+
+  if (loading) {
     return (
       <Loading />
     );
@@ -65,7 +65,7 @@ const PostDetails = ({ id }: Params) => {
   return (
     <S.Container>
         <S.Wrapper>
-          <Card noPadding>
+          <Card>
             {post?.media?.[0] && (
               <S.ImageWrapper>
                 <Image
@@ -77,7 +77,7 @@ const PostDetails = ({ id }: Params) => {
               </S.ImageWrapper>
             )}
           </Card>
-          <Card>
+          <S.CardDetails>
             <S.ContentWrapper>
               <S.HeaderContainer>
                 {post?.thumbnail && (
@@ -90,16 +90,17 @@ const PostDetails = ({ id }: Params) => {
                 <S.TitleWrapper>
                   <S.Title>{post.name}</S.Title>
                   <S.BadgeContainer>
-                    {post?.topics?.edges?.slice(0, 3).map((topic) => (
-                      <S.Badge key={topic.node.name}>{topic.node.name}</S.Badge>
-                    ))}
+                    <S.Badge>{post?.topics?.edges?.[0]?.node?.name}</S.Badge>
                   </S.BadgeContainer>
                 </S.TitleWrapper>
               </S.HeaderContainer>
               <S.Description>{post.description}</S.Description>
+              <S.Description>{post.description}</S.Description>
+              <S.Description>{post.description}</S.Description>
+              <S.Description>{post.description}</S.Description>
+              <S.Description>{post.description}</S.Description>
             </S.ContentWrapper>
-          </Card>
-        </S.Wrapper>
+          </S.CardDetails>
         <S.BottomCardWrapper>
           <S.BottomCard>
             <Button onClick={() => console.log('click')}>Get It</Button>
@@ -108,6 +109,7 @@ const PostDetails = ({ id }: Params) => {
             </Button>
           </S.BottomCard>
         </S.BottomCardWrapper>
+        </S.Wrapper>
     </S.Container>
   );
 };
