@@ -34,6 +34,10 @@ export const Content = styled.div`
 export const Container = styled.div`
   display: flex;
   justify-content: center;
+    height: 90%;
+  @media (max-width: ${theme.breakpoints.md}) {
+    height: 100%;
+  }
 `;
 
 export const CloseButton = styled.button`
@@ -79,7 +83,7 @@ export const GoBackButton = styled.button`
   border: none;
   padding: 1rem;
   margin-top: 1rem;
-  border-radius: 2rem;
+  border-radius: 1rem;
   &:hover {
     cursor: pointer;
   }

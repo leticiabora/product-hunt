@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${theme.background.default};
-  border-radius: 2rem;
+  border-radius: 1rem;
 `;
 
 export const Wrapper = styled.div`
@@ -15,7 +15,8 @@ export const Wrapper = styled.div`
   gap: 2rem;
   background-color: ${theme.background.default};
   overflow: auto;
-  border-radius: 2rem;
+  border-radius: 1.5rem 1.5rem 0 0;
+  flex: 1;
 
   @media (max-width: ${theme.breakpoints.sm}) {
     padding: 1rem;
@@ -36,10 +37,7 @@ export const ImageWrapper = styled.div`
   border-radius: 0.5rem;
   overflow: hidden;
   display: flex;
-  background: linear-gradient(
-    rgba(217, 85, 45, 0.1),
-    rgba(255, 255, 255, 0.3)
-  );
+  background: linear-gradient(rgba(217, 85, 45, 0.1), rgba(255, 255, 255, 0.3));
   border-radius: 1rem;
   padding: 2rem;
   @media (min-width: ${theme.breakpoints.sm}) {
@@ -108,21 +106,25 @@ export const BottomCardWrapper = styled.div`
   display: flex;
   position: sticky;
   bottom: 0;
+  overflow: hidden;
+  border-radius: 1rem;
+  @media (max-width: ${theme.breakpoints.md}) {
+    border-radius: 1.5rem 1.5rem 0 0;
+  }
 `;
 
 export const BottomCard = styled.div`
   display: flex;
   flex: 1;
   gap: 2rem;
-  padding: 2rem 2rem;
+  padding: 2rem;
   justify-content: space-between;
   background-color: white;
-  border-radius: 1rem 1rem 0 0;
   box-shadow: -2px -3px 5px rgba(177, 177, 177, 0.1);
   z-index: 1000;
   @media (max-width: ${theme.breakpoints.md}) {
     padding: 1.5rem 1.5rem;
-      gap: 1.5rem;
+    gap: 1.5rem;
   }
   & > button {
     flex: 1;
