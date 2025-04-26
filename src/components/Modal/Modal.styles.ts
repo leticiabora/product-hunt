@@ -8,12 +8,11 @@ export const Overlay = styled.div`
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 1000;
   overflow: auto;
   @media (max-width: ${theme.breakpoints.md}) {
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
   }
 `;
@@ -22,15 +21,21 @@ export const Content = styled.div`
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  height: 100%;
   max-width: 1020px;
+  margin-bottom: 4rem;
   @media (max-width: ${theme.breakpoints.md}) {
+    display: flex;
+    flex-direction: column;
     overflow: auto;
+    margin-bottom: 0;
   }
 `;
 
 export const Container = styled.div`
   display: flex;
+  @media (max-width: ${theme.breakpoints.md}) {
+    flex: 1;
+  }
 `;
 
 export const CloseButton = styled.button`
@@ -48,6 +53,8 @@ export const CloseButton = styled.button`
   border: none;
   font-size: 18px;
   cursor: pointer;
+  z-index: 10;
+  box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.2);
   @media (max-width: ${theme.breakpoints.md}) {
     display: none;
   }

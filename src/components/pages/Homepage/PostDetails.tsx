@@ -83,6 +83,10 @@ const PostDetails = ({ id }: Params) => {
               </S.TitleWrapper>
             </S.HeaderContainer>
             <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
           </S.ContentWrapper>
         </Card>
       </S.Container>

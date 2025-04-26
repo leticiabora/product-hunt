@@ -10,12 +10,8 @@ export const Container = styled.div`
   overflow: auto;
   border-radius: 2rem;
 
-  @media (min-width: ${theme.breakpoints.xs}) {
+  @media (max-width: ${theme.breakpoints.sm}) {
     padding: 1rem;
-  }
-
-  @media (min-width: ${theme.breakpoints.sm}) {
-    padding: 2rem;
   }
 
   @media (max-width: ${theme.breakpoints.md}) {
