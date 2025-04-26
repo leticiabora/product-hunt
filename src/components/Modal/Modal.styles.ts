@@ -23,19 +23,17 @@ export const Content = styled.div`
   margin-right: auto;
   width: 100%;
   max-width: 1020px;
+  height: 100%;
   @media (max-width: ${theme.breakpoints.md}) {
     display: flex;
     flex-direction: column;
     overflow: auto;
-    margin-bottom: 0;
   }
 `;
 
 export const Container = styled.div`
   display: flex;
-  @media (max-width: ${theme.breakpoints.md}) {
-    flex: 1;
-  }
+  justify-content: center;
 `;
 
 export const CloseButton = styled.button`

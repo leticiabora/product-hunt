@@ -29,7 +29,7 @@ interface ButtonProps {
 export const ButtonContainer = styled.button<ButtonProps>`
   padding: 1rem 1.5rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.6rem;
   font-size: 1.2rem;
   cursor: pointer;
   transition: background 0.2s ease-in-out;

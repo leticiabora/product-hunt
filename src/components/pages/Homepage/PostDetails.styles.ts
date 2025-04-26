@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${theme.background.default};
-  border-radius: 2rem 2rem 0 0;
+  border-radius: 2rem;
 `;
 
 export const Wrapper = styled.div`
@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
   gap: 2rem;
   background-color: ${theme.background.default};
   overflow: auto;
-  border-radius: 2rem 2rem 0 0;
+  border-radius: 2rem;
 
   @media (max-width: ${theme.breakpoints.sm}) {
     padding: 1rem;
@@ -31,10 +31,17 @@ export const Wrapper = styled.div`
 export const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 100%;
+  min-height: 200px;
   border-radius: 0.5rem;
   overflow: hidden;
-
+  display: flex;
+  background: linear-gradient(
+    rgba(217, 85, 45, 0.1),
+    rgba(255, 255, 255, 0.3)
+  );
+  border-radius: 1rem;
+  padding: 2rem;
   @media (min-width: ${theme.breakpoints.sm}) {
     height: 250px;
   }

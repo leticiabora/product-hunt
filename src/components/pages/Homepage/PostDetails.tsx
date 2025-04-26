@@ -62,8 +62,7 @@ const PostDetails = ({ id }: Params) => {
               <Image
                 src={post.media[0].url}
                 alt={`top image for ${post?.name}`}
-                objectFit="cover"
-                objectPosition="center"
+                objectFit="contain"
                 fill
               />
             </S.ImageWrapper>
@@ -87,20 +86,6 @@ const PostDetails = ({ id }: Params) => {
                 <S.Badge>{post?.topics?.edges?.[0].node.name}</S.Badge>
               </S.TitleWrapper>
             </S.HeaderContainer>
-            <S.Description>{post.description}</S.Description>
-            <S.Description>{post.description}</S.Description>
-            <S.Description>{post.description}</S.Description>
-            <S.Description>{post.description}</S.Description>
-            <S.Description>{post.description}</S.Description>
-            <S.Description>{post.description}</S.Description>
-            <S.Description>{post.description}</S.Description>
-            <S.Description>{post.description}</S.Description>
-            <S.Description>{post.description}</S.Description>
-            <S.Description>{post.description}</S.Description>
-            <S.Description>{post.description}</S.Description>
-            <S.Description>{post.description}</S.Description>
-            <S.Description>{post.description}</S.Description>
-            <S.Description>{post.description}</S.Description>
             <S.Description>{post.description}</S.Description>
           </S.ContentWrapper>
         </Card>
