@@ -7,13 +7,14 @@ import { gql, useLazyQuery } from '@apollo/client';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { PostDetailId, Response } from '@/types/posts';
 import Skeleton, { SkeletonType } from '@/components/Skeleton/Skeleton';
+import dayjs from 'dayjs';
 
 import * as S from './Homepage.styles';
 import Modal from '@/components/Modal/Modal';
 import PostDetails from './PostDetails';
 import { apiRequest } from '@/services/api';
 import Thumbnail from '@/components/Thumbnail/Thumbnail';
-import { ArrowIcon } from '@/assets/icons';
+import { ArrowIcon, SearchIcon } from '@/assets/icons';
 
 const GET_POSTS = gql`
   query GetPosts($first: Int!, $after: String, $order: PostsOrder) {
@@ -158,27 +159,44 @@ const Homepage = () => {
 
   return (
     <>
-      <h1>Product Hunt</h1>
       {postId && (
         <Modal isOpen={openModal} onClose={closeModal}>
           <PostDetails id={postId} />
         </Modal>
       )}
-      <Container>
-        <S.Wrapper>
-          {TYPES.map((tab) => (
-            <S.TabButton
-              key={tab.id}
-              role="tab"
-              aria-selected={tab.order === activeTab}
-              $active={tab.order === activeTab}
-              onClick={() => onTabChange(tab.order)}
-            >
-              {tab.name}
-            </S.TabButton>
-          ))}
-        </S.Wrapper>
-      </Container>
+      <div style={{ backgroundColor: 'white', padding: '1rem' }}>
+        <Container noBackground noPadding>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ border: '1px solid gray', width: 'fit-content', borderRadius: '3rem', background: 'black' }}>
+              <Thumbnail
+                src="/product-hunt-cat.png"
+                alt="thumbnail image for profile"
+                width={60}
+                height={60}
+              />
+            </div>
+            <div style={{ background: '#ececec', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', padding: '0.5rem 1rem', height: 'fit-content', fontSize: '1.2rem', justifyContent: 'center', color: '#4d4d4d' }}>
+              {`Today, ${dayjs(new Date()).format('DD MMM')}`}
+            </div>
+            <div>
+              <SearchIcon width={30} height={30} />
+            </div>
+          </div>
+          <S.Wrapper>
+            {TYPES.map((tab) => (
+              <S.TabButton
+                key={tab.id}
+                role="tab"
+                aria-selected={tab.order === activeTab}
+                $active={tab.order === activeTab}
+                onClick={() => onTabChange(tab.order)}
+              >
+                {tab.name}
+              </S.TabButton>
+            ))}
+          </S.Wrapper>
+        </Container>
+      </div>
       <Container>
         <S.TabContent>
           {loading ? (

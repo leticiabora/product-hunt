@@ -1,12 +1,15 @@
 import { theme } from '@/theme/theme';
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.div<{
+  $noBackground: boolean;
+  $noPadding: boolean;
+}>`
   width: 100%;
-  padding: 1rem;
+  padding: ${({ $noPadding }) => $noPadding ? '0' : '1rem'};
   margin-right: auto;
   margin-left: auto;
-  background-color: ${theme.background.default};
+  background-color: ${({ $noBackground }) => $noBackground ? 'transparent' : theme.background.default};
   border-radius: 1rem;
 
   @media (min-width: ${theme.breakpoints.xs}) {
