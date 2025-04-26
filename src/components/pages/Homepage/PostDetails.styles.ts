@@ -96,7 +96,9 @@ export const Description = styled.div`
 export const BottomCardWrapper = styled.div`
   display: flex;
   position: relative;
-  height: 5rem;
+  @media (max-width: ${theme.breakpoints.md}) {
+    height: 5rem;
+  }
 `;
 
 export const BottomCard = styled.div`
@@ -107,13 +109,18 @@ export const BottomCard = styled.div`
   justify-content: space-between;
   position: fixed;
   bottom: 0;
-  right: 0;
-  left: 0;
+  right: 13%;
+  left: 13%;
   padding: 1.5rem 1rem;
   background-color: white;
   border-radius: 1rem 1rem 0 0;
   box-shadow: -2px -3px 5px rgba(177, 177, 177, 0.1);
-  z-index: 10;
+  z-index: 1000;
+  @media (max-width: ${theme.breakpoints.md}) {
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
   & > button {
     flex: 1;
   }

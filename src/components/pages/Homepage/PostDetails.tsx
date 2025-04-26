@@ -94,6 +94,14 @@ const PostDetails = ({ id }: Params) => {
             <S.Description>{post.description}</S.Description>
             <S.Description>{post.description}</S.Description>
             <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
+            <S.Description>{post.description}</S.Description>
           </S.ContentWrapper>
         </Card>
         <S.BottomCardWrapper>
