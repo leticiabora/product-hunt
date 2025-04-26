@@ -9,6 +9,44 @@ export const Wrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
+export const HeaderContainer = styled.div`
+  background-color: white;
+  padding: 1rem;
+  @media (max-width: ${theme.breakpoints.md}) {
+    padding: 0;
+  }
+`;
+
+export const ProfileWrapper = styled.div`
+  border: 1px solid gray;
+  width: fit-content;
+  border-radius: 3rem;
+  background: ${theme.background.dark};
+`;
+
+export const DateWrapper = styled.div`
+  background: ${theme.background.default};
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  height: fit-content;
+  font-size: 1.2rem;
+  justify-content: center;
+  color: ${theme.colors.text.light};
+`;
+
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0;
+  @media (max-width: ${theme.breakpoints.md}) {
+    padding: 1rem;
+  }
+`;
+
 export const TabButton = styled.div<{ $active?: boolean }>`
   display: flex;
   width: 100%;

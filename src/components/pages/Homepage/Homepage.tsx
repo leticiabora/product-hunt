@@ -164,24 +164,20 @@ const Homepage = () => {
           <PostDetails id={postId} />
         </Modal>
       )}
-      <div style={{ backgroundColor: 'white', padding: '1rem' }}>
+      <S.HeaderContainer>
         <Container noBackground noPadding>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ border: '1px solid gray', width: 'fit-content', borderRadius: '3rem', background: 'black' }}>
+          <S.Header>
+            <S.ProfileWrapper>
               <Thumbnail
                 src="/product-hunt-cat.png"
                 alt="thumbnail image for profile"
                 width={60}
                 height={60}
               />
-            </div>
-            <div style={{ background: '#ececec', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', padding: '0.5rem 1rem', height: 'fit-content', fontSize: '1.2rem', justifyContent: 'center', color: '#4d4d4d' }}>
-              {`Today, ${dayjs(new Date()).format('DD MMM')}`}
-            </div>
-            <div>
-              <SearchIcon width={30} height={30} />
-            </div>
-          </div>
+            </S.ProfileWrapper>
+            <S.DateWrapper>{`Today, ${dayjs(new Date()).format('DD MMM')}`}</S.DateWrapper>
+            <SearchIcon width={30} height={30} />
+          </S.Header>
           <S.Wrapper>
             {TYPES.map((tab) => (
               <S.TabButton
@@ -196,7 +192,7 @@ const Homepage = () => {
             ))}
           </S.Wrapper>
         </Container>
-      </div>
+      </S.HeaderContainer>
       <Container>
         <S.TabContent>
           {loading ? (

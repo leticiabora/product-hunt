@@ -2,8 +2,8 @@ import { theme } from '@/theme/theme';
 import styled from 'styled-components';
 
 export const Container = styled.div<{
-  $noBackground: boolean;
-  $noPadding: boolean;
+  $noBackground?: boolean;
+  $noPadding?: boolean;
 }>`
   width: 100%;
   padding: ${({ $noPadding }) => $noPadding ? '0' : '1rem'};

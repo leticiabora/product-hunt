@@ -5,6 +5,7 @@ export const theme = {
     text: {
       primary: '#000000',
       secondary: '#9f9f9f',
+      light: '#4d4d4d',
     },
     border: {
       primary: '#ececec',
@@ -25,6 +26,7 @@ export const theme = {
   },
   background: {
     default: '#f4f5f7',
+    dark: '#000000',
   },
   breakpoints: {
     xs: '576px',
