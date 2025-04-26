@@ -1,14 +1,29 @@
+export type PostDetailId = {
+  data: {
+    post: {
+      id: string;
+    }
+  }
+  id: string;
+};
+
+
+export type Edge = {
+  cursor: string;
+  node: Post;
+};
+
+
 export type Post = {
   __typename: 'Post';
   id: string;
   name: string;
   tagline: string;
   slug: string;
-};
-
-export type Edge = {
-  cursor: string;
-  node: Post;
+  description: string;
+  media: Array<{ url: string }>;
+  thumbnail?: { url: string };
+  topics: { edges: Edge[] };
 };
 
 export type PageInfo = {

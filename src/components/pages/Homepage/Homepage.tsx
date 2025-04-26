@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import Container from '../../Container/Container';
 import { gql, useLazyQuery } from '@apollo/client';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { Response } from '@/types/posts';
+import { PostDetailId, Response } from '@/types/posts';
 import Skeleton from '@/components/Skeleton/Skeleton';
 
 import * as S from './Homepage.styles';
@@ -89,10 +89,10 @@ const Homepage = () => {
 
   console.log('pathname', pathname, pathname.startsWith('/posts/'));
 
-  const fetchPost = async (slug) => {
+  const fetchPost = async (slug: string): Promise<string | null> => {
     try {
-      const postDetail = await apiRequest({ query: GET_POST, variables: { slug } });
-      console.log('data', data);
+      const postDetail = await apiRequest<PostDetailId>({ query: GET_POST, variables: { slug } });
+      console.log('postDetail', postDetail);
 
       if (postDetail?.data?.post?.id) {
         return postDetail.data.post.id;
@@ -101,6 +101,7 @@ const Homepage = () => {
       return null;
     } catch (err) {
       console.log('Err', err);
+      return null;
     }
   };
 

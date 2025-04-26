@@ -13,7 +13,7 @@ interface RequestParams {
   variables?: Record<string, unknown>;
 }
 interface ServerRequestResponse<T> {
-  posts?: T | null;
+  data?: { [key: string]: T };
   error?: string | unknown;
 }
 

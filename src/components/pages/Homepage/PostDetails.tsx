@@ -3,6 +3,7 @@ import { gql, useQuery } from '@apollo/client';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import * as S from './PostDetails.styles';
+import { Post } from '@/types/posts';
 
 interface Params {
   id: string;
@@ -36,7 +37,7 @@ const GET_POST = gql`
 const PostDetails = ({ id }: Params) => {
   const { loading, error, data } = useQuery(GET_POST, { variables: { id } });
 
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState<Post | null>(null);
 
   useEffect(() => {
     if (data?.post) {
