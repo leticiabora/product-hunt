@@ -193,7 +193,7 @@ const Homepage = () => {
         </S.HeaderContent>
       </S.HeaderContainer>
 
-      <Container>
+      <S.ContainerList>
         <S.TabContent>
           {loading ? (
             <Loading />
@@ -233,7 +233,7 @@ const Homepage = () => {
           )}
           {loadingMore && <Loading />}
         </S.TabContent>
-      </Container>
+      </S.ContainerList>
     </>
   );
 };

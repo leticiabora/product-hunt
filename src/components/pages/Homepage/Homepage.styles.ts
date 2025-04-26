@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 export const HeaderContent = styled(Container)`
   background-color: white;
   padding: 0 1rem 0 1rem;
-  @media (max-width: ${theme.breakpoints.md}) {
+  @media (max-width: ${theme.breakpoints.xs}) {
     padding: 0;
   }
 `;
@@ -20,7 +20,7 @@ export const HeaderContainer = styled.div`
   padding: 1rem 1rem 0 1rem;
   background-color: white;
   border-bottom: 1px solid ${theme.colors.border.primary};
-  @media (max-width: ${theme.breakpoints.md}) {
+  @media (max-width: ${theme.breakpoints.xs}) {
     padding: 1rem 0;
   }
 `;
@@ -107,7 +107,15 @@ export const Item = styled.div`
   line-height: 2rem;
 `;
 
-export const CardContainer = styled.div``;
+export const CardContainer = styled.div`
+  @media (max-width: ${theme.breakpoints.md}) {
+    padding-top: 1rem;
+  }
+`;
+
+export const ContainerList = styled(Container)`
+
+`;
 
 export const CardWrapper = styled.div`
   width: 100%;
