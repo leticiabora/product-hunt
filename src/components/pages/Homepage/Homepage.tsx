@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { gql, useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { PostDetailId, Response } from '@/types/posts';
 import dayjs from 'dayjs';
@@ -63,7 +63,10 @@ const Homepage = () => {
 
   const fetchPost = async (slug: string): Promise<string | null> => {
     try {
-      const postDetail = await apiRequest<PostDetailId>({ query: GET_POST_ID, variables: { slug } });
+      const postDetail = await apiRequest<PostDetailId>({
+        query: GET_POST_ID,
+        variables: { slug },
+      });
 
       if (postDetail?.data?.post?.id) {
         return postDetail.data.post.id;
@@ -159,57 +162,15 @@ const Homepage = () => {
           </S.Wrapper>
         </S.HeaderContent>
       </S.HeaderContainer>
-
-          <PostList
-            loading={loading}
-            error={error}
-            postsList={postsList}
-            lastItemRef={lastItemRef}
-            onClick={(id) => setPostId(id)}
-            loadingMore={loadingMore} 
-            data={data}
-          />
-      {/* <S.ContainerList>
-        <S.TabContent>
-          {loading ? (
-            <Loading />
-          ) : error ? (
-            <StatusScreen />
-          ) : postsList?.edges?.length ? (
-            postsList.edges.map((post, index) => (
-              <S.CardContainer
-                key={post.node.id}
-                ref={index === postsList.edges.length - 1 ? lastItemRef : null}
-                onClick={() => setPostId(post.node.id)}
-              >
-                <S.CardWrapper>
-                  {post?.node?.thumbnail?.url ? (
-                    <Thumbnail
-                      src={post?.node?.thumbnail?.url}
-                      alt={`thumbnail image for ${post?.node?.name}`}
-                      width={60}
-                      height={60}
-                    />
-                  ) : (
-                    <S.ImagePlaceholder $width={80} $height={80} />
-                  )}
-                  <S.CardContent>
-                    <S.Title>{post.node.name}</S.Title>
-                    <S.Item>{post.node.tagline}</S.Item>
-                  </S.CardContent>
-                  <S.Votes $isVoted={index === 6}>
-                    <ArrowIcon width={25} height={25} color={index === 6 ? 'white' : '#000'} />
-                    {post.node.votesCount}
-                  </S.Votes>
-                </S.CardWrapper>
-              </S.CardContainer>
-            ))
-          ) : (
-            <S.Item>No Posts</S.Item>
-          )}
-          {loadingMore && <Loading />}
-        </S.TabContent>
-      </S.ContainerList> */}
+      <PostList
+        loading={loading}
+        error={error}
+        postsList={postsList}
+        lastItemRef={lastItemRef}
+        onClick={(id) => setPostId(id)}
+        loadingMore={loadingMore}
+        data={data}
+      />
     </>
   );
 };

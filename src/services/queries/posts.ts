@@ -32,3 +32,30 @@ export const GET_POST_ID = gql`
     }
   }
 `;
+
+export const GET_POST = gql`
+  query GetPost($id: ID!) {
+    post(id: $id) {
+      id
+      name
+      tagline
+      slug
+      description
+      votesCount
+      thumbnail {
+        url
+        type
+      }
+      media {
+        url
+      }
+      topics {
+        edges {
+          node {
+            name
+          }
+        }
+      }
+    }
+  }
+`;

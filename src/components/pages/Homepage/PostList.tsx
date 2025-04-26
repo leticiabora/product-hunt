@@ -5,10 +5,11 @@ import Thumbnail from '@/components/Thumbnail/Thumbnail';
 import { ArrowIcon } from '@/assets/icons';
 import { RefObject } from 'react';
 import { Response, ServerResponse } from '@/types/posts';
+import { ApolloError } from '@apollo/client';
 
 interface Params {
   loading: boolean;
-  error: boolean;
+  error: ApolloError | undefined;
   postsList: Response;
   lastItemRef: RefObject<HTMLDivElement | null>;
   onClick: (id: string) => void;
