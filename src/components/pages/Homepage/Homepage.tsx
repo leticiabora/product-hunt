@@ -166,13 +166,12 @@ const Homepage = () => {
       )}
       <Container>
         <S.Wrapper>
-          {TYPES.map((tab, index) => (
+          {TYPES.map((tab) => (
             <S.TabButton
               key={tab.id}
               role="tab"
               aria-selected={tab.order === activeTab}
               $active={tab.order === activeTab}
-              $position={index === 0 ? 'left' : 'right'}
               onClick={() => onTabChange(tab.order)}
             >
               {tab.name}

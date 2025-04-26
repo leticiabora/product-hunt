@@ -9,10 +9,7 @@ export const Wrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
-export const TabButton = styled.div<{
-  $active?: boolean;
-  $position?: string;
-}>`
+export const TabButton = styled.div<{ $active?: boolean }>`
   display: flex;
   width: 100%;
   padding: 1rem;
@@ -20,6 +17,7 @@ export const TabButton = styled.div<{
   position: relative;
   font-weight: 500;
   color: ${({ $active }) => ($active ? '#d75834' : 'gray')};
+
   &::after {
     content: '';
     position: absolute;
@@ -27,15 +25,20 @@ export const TabButton = styled.div<{
     left: 0;
     width: 100%;
     height: 4px;
-    border-radius: 8px;
     background-color: ${({ $active }) => ($active ? '#d75834' : 'transparent')};
-    @media (max-width: ${theme.breakpoints.xs}) {
-      border-top-right-radius: ${({ $position }) => ($position === 'left' ? '8px' : '0')};
-      border-bottom-right-radius: ${({ $position }) => ($position === 'left' ? '8px' : '0')};
-      border-top-left-radius: ${({ $position }) => ($position === 'right' ? '8px' : '0')};
-      border-bottom-left-radius: ${({ $position }) => ($position === 'right' ? '8px' : '0')};
-    }
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
   }
+
+  &:first-child::after {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  &:last-child::after {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
   &:hover {
     cursor: pointer;
   }
