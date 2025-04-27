@@ -30,9 +30,9 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const CardDetails = styled(Card)`
+export const CardDetails = styled(Card)<({ $noPadding?: boolean })>`
   @media (max-width: ${theme.breakpoints.md}) {
-    padding: 1rem;
+    padding: ${({ $noPadding }) => $noPadding ? '0' : '1rem'};
   }
 `;
 
@@ -127,7 +127,7 @@ export const BottomCard = styled.div`
   box-shadow: -2px -3px 5px rgba(177, 177, 177, 0.1);
   z-index: 1000;
   @media (max-width: ${theme.breakpoints.md}) {
-    padding: 1.5rem 1.5rem;
+    padding: 1rem 1rem;
     gap: 1.5rem;
   }
   & > button {

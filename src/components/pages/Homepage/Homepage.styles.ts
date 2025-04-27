@@ -21,7 +21,8 @@ export const HeaderContainer = styled.div`
   background-color: white;
   border-bottom: 1px solid ${theme.colors.border.primary};
   @media (max-width: ${theme.breakpoints.xs}) {
-    padding: 1rem 0;
+    padding: 1rem 0 0 0;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -108,13 +109,9 @@ export const Item = styled.div`
 `;
 
 export const CardContainer = styled.div`
-  @media (max-width: ${theme.breakpoints.md}) {
-    padding-top: 1rem;
-  }
 `;
 
 export const ContainerList = styled(Container)`
-
 `;
 
 export const CardWrapper = styled.div`

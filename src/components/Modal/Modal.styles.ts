@@ -71,6 +71,7 @@ export const MobileButtons = styled.div`
     display: flex;
     justify-content: space-between;
     background-color: ${theme.background.default};
+    border-bottom: 1px solid ${theme.colors.border.primary};
   }
 `;
 
@@ -81,7 +82,6 @@ export const GoBackButton = styled.button`
   align-items: center;
   border: none;
   padding: 1rem;
-  margin-top: 1rem;
   border-radius: 1rem;
   &:hover {
     cursor: pointer;

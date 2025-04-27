@@ -35,7 +35,7 @@ const PostDetails = ({ id }: Params) => {
   return (
     <S.Container>
       <S.Wrapper>
-        <Card>
+        <Card noPadding>
           {post?.media?.[0] && (
             <S.ImageWrapper>
               <Image
