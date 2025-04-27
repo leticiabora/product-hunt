@@ -12,9 +12,9 @@ export const Container = styled.div`
 
 export const Wrapper = styled.div`
   display: flex;
-  padding: 2rem;
+  padding: 1.5rem;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
   background-color: ${theme.background.default};
   overflow: auto;
   border-radius: 1.5rem 1.5rem 0 0;
@@ -120,8 +120,8 @@ export const BottomCardWrapper = styled.div`
 export const BottomCard = styled.div`
   display: flex;
   flex: 1;
-  gap: 2rem;
-  padding: 2rem;
+  gap: 1.5rem;
+  padding: 1.5rem;
   justify-content: space-between;
   background-color: white;
   box-shadow: -2px -3px 5px rgba(177, 177, 177, 0.1);
