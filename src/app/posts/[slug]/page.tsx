@@ -1,5 +1,13 @@
-import Homepage from '@/components/pages/Homepage/Homepage';
+'use client';
 
-export default async function PostDetail() {
-  return <Homepage />;
+import Homepage from '@/components/pages/Homepage/Homepage';
+import { Loading } from '@/components/pages/Homepage/Loading/Loading';
+import { Suspense } from 'react';
+
+export default function PostDetail() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Homepage />
+    </Suspense>
+  );
 }

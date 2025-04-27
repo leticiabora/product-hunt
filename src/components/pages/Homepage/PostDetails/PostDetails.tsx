@@ -43,6 +43,7 @@ const PostDetails = ({ id }: Params) => {
                 alt={`top image for ${post?.name}`}
                 objectFit="contain"
                 fill
+                unoptimized
               />
             </S.ImageWrapper>
           )}
