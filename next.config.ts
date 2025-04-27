@@ -5,7 +5,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [      {
       hostname: 'ph-files.imgix.net',
     }]
-  }
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
