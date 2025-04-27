@@ -42,7 +42,7 @@ const Homepage = () => {
   const lastItemRef = useRef(null);
 
   const { loadingMore } = useInfiniteScroll(
-    data,
+    postsList,
     setPostsList,
     fetchMore,
     activeTab,

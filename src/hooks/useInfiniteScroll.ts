@@ -25,7 +25,6 @@ const useInfiniteScroll = (
   setHasMore: React.Dispatch<React.SetStateAction<boolean>>,
   lastItemRef: RefObject<HTMLElement | null>,
 ) => {
-  const lastCursor = data?.edges?.at(-1)?.cursor;
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [error, setError] = useState<ClientError | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout>(null);
@@ -33,31 +32,30 @@ const useInfiniteScroll = (
   const postListSize = 10;
 
   const loadMore = useCallback(async () => {
+    const lastCursor = data?.edges?.at(-1)?.cursor;
     setLoadingMore(true);
     try {
       await fetchMore({
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev;
-
+  
           const uniqueIds = new Set(prev.posts.edges.map((edge) => edge.node.id));
-
           const filterEdges = fetchMoreResult.posts.edges.filter(
             (edge) => !uniqueIds.has(edge.node.id),
           );
-
           const edges = [...(prev?.posts?.edges ?? []), ...filterEdges];
-
+  
           const updatedPosts = {
             ...fetchMoreResult.posts,
             edges,
             pageInfo: fetchMoreResult.posts.pageInfo,
           };
-
+  
           const checkHasMore = fetchMoreResult?.posts?.pageInfo?.hasNextPage ?? false;
-
+  
           setData(updatedPosts);
           setHasMore(checkHasMore);
-
+  
           return {
             posts: updatedPosts,
           };
@@ -82,7 +80,8 @@ const useInfiniteScroll = (
     } finally {
       setLoadingMore(false);
     }
-  }, [fetchMore, order, setData, lastCursor, setHasMore]);
+  }, [data, fetchMore, order, setData, setHasMore]);
+  
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -102,25 +101,6 @@ const useInfiniteScroll = (
     return () => {
       observer.disconnect();
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, [loading, loadingMore, hasMore, loadMore]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!lastItemRef.current || loading || loadingMore || !hasMore) return;
-
-      const rect = lastItemRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-      const pixelHeight = 300;
-
-      if (rect.top < windowHeight + pixelHeight) {
-        loadMore();
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
     };
   }, [loading, loadingMore, hasMore, loadMore]);
 
