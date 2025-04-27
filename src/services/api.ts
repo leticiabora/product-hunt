@@ -20,7 +20,6 @@ interface ServerRequestResponse<T> {
 export const apiRequest = async <T>({ query, variables }: RequestParams): Promise<ServerRequestResponse<T>> => {
   try {
     const data = await client.query<{ posts: T }>({ query, variables });
-
     return data;
   } catch (error) {
     const graphqlError = error as ClientError;

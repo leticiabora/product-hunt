@@ -30,6 +30,8 @@ const useInfiniteScroll = (
   const [error, setError] = useState<ClientError | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout>(null);
 
+  const postListSize = 10;
+
   const loadMore = useCallback(async () => {
     setLoadingMore(true);
     try {
@@ -61,7 +63,7 @@ const useInfiniteScroll = (
           };
         },
         variables: {
-          first: 10,
+          first: postListSize,
           after: lastCursor,
           order,
         },

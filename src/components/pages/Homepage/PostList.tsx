@@ -18,9 +18,10 @@ interface Params {
 }
 
 const PostList: React.FC<Params> = ({ loading, error, postsList, lastItemRef, onClick, loadingMore, data }) => {
-  if (loading || !data) return <Loading />;
   if (error) return <StatusScreen />;
-  if (data?.posts?.edges?.length === 0) return <StatusScreen message="No posts yet." />;
+  if (loading || !data) return <Loading />;
+  if (!data?.posts?.edges?.length) return <StatusScreen message="No posts yet." />;
+
 
   return (
     <S.ContainerList>

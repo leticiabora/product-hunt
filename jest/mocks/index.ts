@@ -1,6 +1,6 @@
-import { GET_POSTS } from "@/services/queries/posts";
-import { POPULAR_RESULT } from "./results/popular";
-import { NEWEST } from "./results/newest";
+import { GET_POSTS } from '@/services/queries/posts';
+import { NEWEST } from './results/newest';
+import { POPULAR_RESULT } from './results/popular';
 
 export const mocks = [
   {
@@ -11,7 +11,7 @@ export const mocks = [
         order: 'VOTES',
       },
     },
-    result: POPULAR_RESULT
+    result: POPULAR_RESULT,
   },
   {
     request: {
@@ -49,6 +49,7 @@ export const emptyMock = [
     },
   },
 ];
+
 
 export const errorMock = [
   {

@@ -19,7 +19,10 @@ import { GET_POST_ID, GET_POSTS } from '@/services/queries/posts';
 const TYPES = [
   { id: 'pop', order: 'VOTES', name: 'Popular' },
   { id: 'new', order: 'NEWEST', name: 'Newest' },
+
 ];
+
+const postListSize = 10; 
 
 const Homepage = () => {
   const [postsList, setPostsList] = useState<Response>({
@@ -39,7 +42,7 @@ const Homepage = () => {
   const lastItemRef = useRef(null);
 
   const { loadingMore } = useInfiniteScroll(
-    postsList,
+    data,
     setPostsList,
     fetchMore,
     activeTab,
@@ -96,7 +99,7 @@ const Homepage = () => {
   }, []);
 
   useEffect(() => {
-    fetchPosts({ variables: { first: 10, order: activeTab } });
+    fetchPosts({ variables: { first: postListSize, order: activeTab } });
   }, [activeTab]);
 
   const onTabChange = (order: string) => {
