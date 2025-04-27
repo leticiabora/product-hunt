@@ -2,12 +2,14 @@ import { GET_POSTS } from '@/services/queries/posts';
 import { NEWEST } from './results/newest';
 import { POPULAR_RESULT } from './results/popular';
 
+const listSize = 10;
+
 export const mocks = [
   {
     request: {
       query: GET_POSTS,
       variables: {
-        first: 10,
+        first: listSize,
         order: 'VOTES',
       },
     },
@@ -17,7 +19,7 @@ export const mocks = [
     request: {
       query: GET_POSTS,
       variables: {
-        first: 10,
+        first: listSize,
         order: 'NEWEST',
       },
     },

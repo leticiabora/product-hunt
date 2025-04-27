@@ -20,6 +20,7 @@ const Skeleton: React.FC<Params> = ({ variant = SkeletonType.TEXT, width, height
 
   return (
     <Wrapper
+      data-testid="skeleton"
       $variant={variant}
       $width={typeof width === 'string' ? width : newWidth}
       $height={typeof height === 'string' ? height : newHeight}

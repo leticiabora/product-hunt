@@ -176,7 +176,7 @@ export const POPULAR_RESULT = {
       ],
       pageInfo: {
         __typename: 'PageInfo',
-        hasNextPage: true,
+        hasNextPage: false,
         endCursor: 'MTA',
       },
     },

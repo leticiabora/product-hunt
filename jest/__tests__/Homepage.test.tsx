@@ -70,17 +70,18 @@ describe('Homepage elements', () => {
     mockUseSearchParams.mockReset();
     params = new URLSearchParams('type=VOTES');
   });
-  // it('Render loading text', async () => {
-  //   render(
-  //     <MockedProvider mocks={mocks}>
-  //       <ThemeProvider theme={theme}>
-  //       <Homepage />
-  //       </ThemeProvider>
-  //     </MockedProvider>,
-  //   );
+  it('Render loading text', async () => {
+    render(
+      <MockedProvider mocks={mocks}>
+        <ThemeProvider theme={theme}>
+        <Homepage />
+        </ThemeProvider>
+      </MockedProvider>,
+    );
 
-  //   expect(screen.getByText(/loading/i)).toBeInTheDocument();
-  // });
+      const skeletons = screen.getAllByTestId(/skeleton/i);
+      expect(skeletons.length).toBeGreaterThan(0);
+  });
 
   it('Renders error message on query failure', async () => {
     render(
